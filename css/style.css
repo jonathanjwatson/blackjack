@@ -22,5 +22,10 @@ body {
 }
 
 .row {
-    height=50%;
+    height:100%;
+    text-align:center;
+}
+img {
+    width:100%;
+    max-width:100px;
 }
