@@ -10,12 +10,16 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Compiled and minified JavaScript -->
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-
+        <script src="js/main.js"></script>
         
     </head>
     <body>
@@ -23,14 +27,23 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="row">
+            <button id="startButton">Start</button>
+        </div>
+        <div class="row">
             <p style="color:#FFF; font-size: 70px;">Dealer</p>
             <img src="images/card-images/back.png">
             <img src="images/card-images/back.png">
+        </div>
+        <div class="row" id="Score">
+            <span>Dealer Score</span>
         </div>
         <div class="row">
             <p style="color:#FFF; font-size: 70px;">Player</p>
                         <img src="images/card-images/back.png">
             <img src="images/card-images/back.png">
+        </div>
+        <div class="row" id="Score">
+            <span>Player Score</span>
         </div>
     </body>
 </html>
