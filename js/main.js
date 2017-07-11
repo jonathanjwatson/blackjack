@@ -1,3 +1,5 @@
+$(function() {
+
 var deckOfCards = [
     {
         name: "Ace of Hearts",
@@ -277,4 +279,6 @@ $('#startButton').on('click', runInitialFunction());
 
 function runInitialFunction(){
     console.log("Start the game");
-}
+};
+
+});
