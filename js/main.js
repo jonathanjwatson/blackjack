@@ -245,6 +245,7 @@ function calculateDealerScore(){
     for (i = 0; i < dealerCards.length; i++){
         dealerScore = dealerCards[i].value + dealerScore;
     }
+    console.log(`Dealer score: ${dealerScore}`);
     return dealerScore;
 }
 //Advanced feature. If dealer score = 21, display Blackjack.
@@ -259,6 +260,7 @@ function calculatePlayerScore(){
     for (i = 0; i < playerCards.length; i++){
         playerScore = playerCards[i].value + playerScore;
     }
+    console.log(`Player Score: ${playerScore}`);
     return playerScore;
 }
 
@@ -275,10 +277,17 @@ var usedCards = [];
 
 
 //Start button click handler. 
-$('#startButton').on('click', runInitialFunction());
+// $('#startButton').on('click', runInitialFunction(event));
 
 function runInitialFunction(){
     console.log("Start the game");
 };
+
+$('#startButton').click(function() {
+  runInitialFunction();
+  startingCards();
+  calculateDealerScore();
+  calculatePlayerScore();
+});
 
 });
