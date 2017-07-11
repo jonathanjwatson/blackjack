@@ -20,9 +20,7 @@ body {
      while the background image is loading */
   background-color: #F8F8F8;
 }
-
 .row {
-    height:100%;
     text-align:center;
 }
 img {
