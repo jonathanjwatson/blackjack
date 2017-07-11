@@ -273,6 +273,8 @@ var usedCards = [];
 
 
 //Start button click handler. 
-$('#startButton').on('click', function(){
-    console.log("Start the game!");
-});
+$('#startButton').on('click', runInitialFunction());
+
+function runInitialFunction(){
+    console.log("Start the game");
+}
