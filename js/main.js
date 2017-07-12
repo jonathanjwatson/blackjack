@@ -4,7 +4,7 @@ var deckOfCards = [
     {
         name: "Ace of Hearts",
         value: 11,
-        source: "images/card-images/ace_of_hearts.png"
+        src: "images/card-images/ace_of_hearts.png"
     },
     {
         name: "Two of Hearts",
@@ -69,7 +69,7 @@ var deckOfCards = [
     {
         name: "Ace of Spades",
         value: 11,
-        source: "images/card-images/ace_of_spades.png"
+        src: "images/card-images/ace_of_spades.png"
     },
     {
         name: "Two of Spades",
@@ -134,7 +134,7 @@ var deckOfCards = [
     {
         name: "Ace of Diamonds",
         value: 11,
-        source: "images/card-images/ace_of_diamonds.png"
+        src: "images/card-images/ace_of_diamonds.png"
     },
     {
         name: "Two of Diamonds",
@@ -199,7 +199,7 @@ var deckOfCards = [
     {
         name: "Ace of Clubs",
         value: 11,
-        source: "images/card-images/ace_of_clubs.png"
+        src: "images/card-images/ace_of_clubs.png"
     },
     {
         name: "Two of Clubs",
