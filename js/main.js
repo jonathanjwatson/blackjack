@@ -281,20 +281,24 @@ var TopGameControllers = {
         console.log(topLevelVariables.dealerCards);
         console.log(topLevelVariables.dealerScore);
         console.log(topLevelVariables.playerScore);
+        $('#dealerCardOne').attr('src', 'images/card-images/back.png');
+        $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
+        $('#playerCardOne').attr('src', 'images/card-images/back.png');
+        $('#playerCardTwo').attr('src', 'images/card-images/back.png');
+        
     },
     startingCards: function() {
-        var dealerCardOne = TopGameControllers.randomCard();
-        var playerCardOne = TopGameControllers.randomCard();
-        var dealerCardTwo = TopGameControllers.randomCard();
-        var playerCardTwo = TopGameControllers.randomCard();
+        topLevelVariables.dealerCardOne = TopGameControllers.randomCard();
+        topLevelVariables.playerCardOne = TopGameControllers.randomCard();
+        topLevelVariables.dealerCardTwo = TopGameControllers.randomCard();
+        topLevelVariables.playerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.dealerCards.push(dealerCardOne);
-        $('#dealerCardOne').attr('src', dealerCardOne.src);
         topLevelVariables.dealerCards.push(dealerCardTwo);
-        $('#dealerCardTwo').attr('src', dealerCardTwo.src);
+        $('#dealerCardTwo').attr('src', topLevelVariables.dealerCardTwo.src);
         topLevelVariables.playerCards.push(playerCardOne);
-        $('#playerCardOne').attr('src', playerCardOne.src);
+        $('#playerCardOne').attr('src', topLevelVariables.playerCardOne.src);
         topLevelVariables.playerCards.push(playerCardTwo);
-        $('#playerCardTwo').attr('src', playerCardTwo.src);
+        $('#playerCardTwo').attr('src', topLevelVariables.playerCardTwo.src);
         return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
     },
     randomCard: function() {
@@ -320,6 +324,10 @@ var TopGameControllers = {
 // Get one random card and assign to dealer. Display this card. 
 // Get one random card and assign it to player. Display this card. 
 var topLevelVariables = {
+    dealerCardOne: null,
+    playerCardOne: null,
+    dealerCardTwo: null,
+    playerCardTwo: null,
     playerCards: [],
     dealerCards: [],
     usedCards: [],
@@ -344,6 +352,7 @@ var DealerLogicController = {
         return topLevelVariables.dealerCards;
     },
     dealerGameLogic: function() {
+        $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         console.log("Run dealerGame logic");
         console.log(topLevelVariables.dealerScore);
         if (topLevelVariables.dealerScore > 21) {
