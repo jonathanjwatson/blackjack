@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-        <script src="js/main.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         
     </head>
     <body>
@@ -27,10 +27,10 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="row">
-            <button id="startButton">Deal</button>
+            
         </div>
         <div class="row">
-            <p style="color:#FFF; font-size: 70px;">Dealer</p>
+            <p style="color:#FFF; font-size: 60px;">Dealer</p>
             <img src="images/card-images/back.png">
             <img src="images/card-images/back.png">
         </div>
@@ -38,7 +38,7 @@
             <span>Dealer Score</span>
         </div>
         <div class="row" id="playerHand">
-            <p style="color:#FFF; font-size: 70px;">Player</p>
+            <p style="color:#FFF; font-size: 60px;">Player</p>
             <img src="images/card-images/back.png">
             <img src="images/card-images/back.png">
         </div>
@@ -46,7 +46,12 @@
             <span>Player Score</span>
         </div>
         <div class="row">
+            <div class="controller" id="Hit">
             <button id="hitButton">Hit me!</button>
+            </div>
+            <div class="controller" id="Deal">
+            <button id="startButton">Deal</button>
+            </div>
         </div>
     </body>
 </html>
