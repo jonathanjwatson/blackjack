@@ -1,4 +1,4 @@
-$(function() {
+window.onload = function() {
 
 var deckOfCards = [
     {
@@ -266,12 +266,31 @@ function calculatePlayerScore(){
 
 //Create a Stay Button for player. 
 // Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
+function hitPlayerCard() {
+    var playerCardNext = randomCard();
+    console.log(`Your new card is the ${playerCardNext.name}`)
+    playerCards.push(playerCardNext);
+    return playerCards;
+}
+
 //Advanced: Create Double Button for player. 
 
 //Advanced: Create Split Button for player. 
 //If playerCards[0].value === playerCards[1].value, then create Split Button. 
 
 //IF player hits Stay, push playerCards into usedCards array. 
+
+//If player points exceeds 21, alert "Bust!" and push playerCards into usedCards array. ;
+
+//Start dealing dealer cards.
+
+//Once Player is done taking cards, show dealer cards, then start taking dealer cards. 
+
+//If 
+
+
+//When everybody has as many cards as they want, evaluate who has a higher score. 
+
 
 var usedCards = [];
 
@@ -290,4 +309,11 @@ $('#startButton').click(function() {
   calculatePlayerScore();
 });
 
+$('#hitButton').click(function() {
+    console.log("Take another card");
+    hitPlayerCard();
+    calculatePlayerScore();
 });
+
+
+};
