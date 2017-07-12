@@ -265,14 +265,14 @@ var deckOfCards = [
 
 function randomCard() {
     var cardIndex = Math.round(Math.random() * 52);
-    for (i = 0; i < usedCards.length; i++){
-        if (cardIndex === usedCards[i]){
+    for (i = 0; i < topLevelVariables.usedCards.length; i++){
+        if (cardIndex === topLevelVariables.usedCards[i]){
         console.log("Duplicate Card");
         cardIndex = Math.round(Math.random() * 52);
         }; 
     };
-    usedCards.push(cardIndex);
-    console.log(usedCards);
+    topLevelVariables.usedCards.push(cardIndex);
+    console.log(topLevelVariables.usedCards);
     // console.log(this.usedcards);
     return deckOfCards[cardIndex];
 }
@@ -283,72 +283,89 @@ function randomCard() {
 // Get one random card and assign to player. Display this card. 
 // Get one random card and assign to dealer. Display this card. 
 // Get one random card and assign it to player. Display this card. 
+var topLevelVariables = {
+    playerCards: [],
+    dealerCards: [],
+    usedCards: [],
+    dealerScore: 0,
+    playerScore: 0,
+}
 
-var playerCards = [];
-var dealerCards = [];
-var usedCards = [];
 
 function startingCards() {
     var dealerCardOne = randomCard();
     var playerCardOne = randomCard();
     var dealerCardTwo = randomCard();
     var playerCardTwo = randomCard();
-    dealerCards.push(dealerCardOne);
-    dealerCards.push(dealerCardTwo)
-    playerCards.push(playerCardOne);
-    playerCards.push(playerCardTwo);
-    return [dealerCards, playerCards];
+    topLevelVariables.dealerCards.push(dealerCardOne);
+    topLevelVariables.dealerCards.push(dealerCardTwo)
+    topLevelVariables.playerCards.push(playerCardOne);
+    topLevelVariables.playerCards.push(playerCardTwo);
+    return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
 };
 
 //add functionality to push cards into usedCards array as soon as they come out. 
 
 
-var dealerScore;
 
-function calculateDealerScore(){
-    var dealerScore = 0;
-    for (i = 0; i < dealerCards.length; i++){
-        dealerScore = dealerCards[i].value + dealerScore;
-    }
-    console.log(`Dealer score: ${dealerScore}`);
-    if (dealerCards.length === 2 && dealerScore === 21){
-        console.log("Dealer has blackjack!");
-        //Advanced feature. If dealer score = 21, display Blackjack.
-        //disable player buttons
-        return
-    }
-    return dealerScore;
+
+var dealerLogicController = {
+    hitDealerCard: function() {
+        var dealerCardNext = randomCard();
+        console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
+        topLevelVariables.dealerCards.push(dealerCardNext);
+        return topLevelVariables.dealerCards;
+    },
+    dealerGameLogic: function() {
+        console.log("Run dealerGame logic");
+        console.log(topLevelVariables.dealerScore);
+        if (topLevelVariables.dealerScore > 21) {
+            alert("Dealer busts!");
+            resetCards();
+        } else if (topLevelVariables.dealerScore >= 17 ){
+            console.log("Dealer stands on " + topLevelVariables.dealerScore);
+        } else if (topLevelVariables.dealerScore < 17){
+            console.log("Call hitDealerCard function");
+            dealerLogicController.hitDealerCard();
+            dealerLogicController.calculateDealerScore();
+        };
+    },
+    calculateDealerScore: function(){
+        topLevelVariables.dealerScore = 0;
+        for (i = 0; i < topLevelVariables.dealerCards.length; i++){
+            topLevelVariables.dealerScore = topLevelVariables.dealerCards[i].value + topLevelVariables.dealerScore;
+        }
+        console.log(`Dealer score: ${topLevelVariables.dealerScore}`);
+        if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
+            alert("Dealer has blackjack!");
+            resetCards();
+            //Advanced feature. If dealer score = 21, display Blackjack.
+            //disable player buttons
+            return
+        } else {
+            dealerLogicController.dealerGameLogic();
+        }
+        return topLevelVariables.dealerScore;
 }
-
-function dealerGameLogic() {
-    console.log("Run dealerGame logic");
-    console.log(dealerScore);
-    if (dealerScore > 21) {
-        console.log("Dealer busts!");
-    } else if (dealerScore >= 17 ){
-        console.log("Dealer stands on " + dealerScore);
-    } else if (dealerScore < 17){
-        console.log("Call hitDealerCard function");
-        hitDealerCard();
-    };
 }
-
 
 //Push player cards into player array. 
 
 //Return player Score
-var playerScore;
+
+var PlayerLogicController
 
 function calculatePlayerScore(){
-    var playerScore = 0;
-    for (i = 0; i < playerCards.length; i++){
-        playerScore = playerCards[i].value + playerScore;
+    topLevelVariables.playerScore = 0;
+    for (i = 0; i < topLevelVariables.playerCards.length; i++){
+        topLevelVariables.playerScore = topLevelVariables.playerCards[i].value + topLevelVariables.playerScore;
     }
-    if (playerScore > 21){
-        console.log("You busted!");
+    if (topLevelVariables.playerScore > 21){
+        alert("You busted!");
+        resetCards();
     }
-    console.log(`Player Score: ${playerScore}`);
-    return playerScore;
+    console.log(`Player Score: ${topLevelVariables.playerScore}`);
+    return topLevelVariables.playerScore;
 }
 
 //Create a Stay Button for player. 
@@ -356,41 +373,35 @@ function calculatePlayerScore(){
 function hitPlayerCard() {
     var playerCardNext = randomCard();
     console.log(`Your new card is the ${playerCardNext.name}`)
-    playerCards.push(playerCardNext);
-    return playerCards;
+    topLevelVariables.playerCards.push(playerCardNext);
+    return topLevelVariables.playerCards;
 }
 
 function stayPlayerCard(){
     console.log("Call calculatePlayerScore function");
     calculatePlayerScore();
     console.log("Call dealerGameLogic function");
-    dealerGameLogic();
+    dealerLogicController.dealerGameLogic();
 }
 
-function hitDealerCard() {
-    var dealerCardNext = randomCard();
-    console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
-    dealerCards.push(dealerCardNext);
-    return dealerCards;
-}
 
 function resetCards() {
     dealerCardOne = null;
     playerCardOne = null;
     dealerCardTwo = null;
     playerCardTwo = null;
-    dealerCards = [];
-    playerCards = [];
-    dealerScore = 0;
-    playerScore = 0;
+    topLevelVariables.dealerCards = [];
+    topLevelVariables.playerCards = [];
+    topLevelVariables.dealerScore = 0;
+    topLevelVariables.playerScore = 0;
     console.log(dealerCardOne);
     console.log(playerCardOne);
     console.log(dealerCardTwo);
     console.log(playerCardTwo);
-    console.log(playerCards);
-    console.log(dealerCards);
-    console.log(dealerScore);
-    console.log(playerScore);
+    console.log(topLevelVariables.playerCards);
+    console.log(topLevelVariables.dealerCards);
+    console.log(topLevelVariables.dealerScore);
+    console.log(topLevelVariables.playerScore);
 }
 
 //Advanced: Create Double Button for player. 
@@ -420,7 +431,7 @@ function resetCards() {
 
 $('#startButton').click(function() {
   startingCards();
-  calculateDealerScore();
+  dealerLogicController.calculateDealerScore();
   calculatePlayerScore();
 });
 
