@@ -309,7 +309,7 @@ function startingCards() {
 
 
 
-var dealerLogicController = {
+var DealerLogicController = {
     hitDealerCard: function() {
         var dealerCardNext = randomCard();
         console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
@@ -326,8 +326,8 @@ var dealerLogicController = {
             console.log("Dealer stands on " + topLevelVariables.dealerScore);
         } else if (topLevelVariables.dealerScore < 17){
             console.log("Call hitDealerCard function");
-            dealerLogicController.hitDealerCard();
-            dealerLogicController.calculateDealerScore();
+            DealerLogicController.hitDealerCard();
+            DealerLogicController.calculateDealerScore();
         };
     },
     calculateDealerScore: function(){
@@ -343,7 +343,7 @@ var dealerLogicController = {
             //disable player buttons
             return
         } else {
-            dealerLogicController.dealerGameLogic();
+            DealerLogicController.dealerGameLogic();
         }
         return topLevelVariables.dealerScore;
 }
@@ -353,20 +353,21 @@ var dealerLogicController = {
 
 //Return player Score
 
-var PlayerLogicController
-
-function calculatePlayerScore(){
-    topLevelVariables.playerScore = 0;
-    for (i = 0; i < topLevelVariables.playerCards.length; i++){
-        topLevelVariables.playerScore = topLevelVariables.playerCards[i].value + topLevelVariables.playerScore;
-    }
-    if (topLevelVariables.playerScore > 21){
-        alert("You busted!");
-        resetCards();
-    }
-    console.log(`Player Score: ${topLevelVariables.playerScore}`);
-    return topLevelVariables.playerScore;
+var PlayerLogicController = {
+    calculatePlayerScore: function(){
+        topLevelVariables.playerScore = 0;
+        for (i = 0; i < topLevelVariables.playerCards.length; i++){
+            topLevelVariables.playerScore = topLevelVariables.playerCards[i].value + topLevelVariables.playerScore;
+        }
+        if (topLevelVariables.playerScore > 21){
+            alert("You busted!");
+            resetCards();
+        }
+        console.log(`Player Score: ${topLevelVariables.playerScore}`);
+        return topLevelVariables.playerScore;
 }
+}
+
 
 //Create a Stay Button for player. 
 // Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
@@ -379,9 +380,9 @@ function hitPlayerCard() {
 
 function stayPlayerCard(){
     console.log("Call calculatePlayerScore function");
-    calculatePlayerScore();
+    PlayerLogicController.calculatePlayerScore();
     console.log("Call dealerGameLogic function");
-    dealerLogicController.dealerGameLogic();
+    DealerLogicController.dealerGameLogic();
 }
 
 
@@ -431,14 +432,14 @@ function resetCards() {
 
 $('#startButton').click(function() {
   startingCards();
-  dealerLogicController.calculateDealerScore();
-  calculatePlayerScore();
+  DealerLogicController.calculateDealerScore();
+  PlayerLogicController.calculatePlayerScore();
 });
 
 $('#hitButton').click(function() {
     console.log("Take another card");
     hitPlayerCard();
-    calculatePlayerScore();
+    PlayerLogicController.calculatePlayerScore();
     // if (playerScore > 21){
     //     alert("You busted!");
     // }
