@@ -269,6 +269,7 @@ var topLevelVariables = {
     dealerCardTwo: null,
     playerCardTwo: null,
     playerCardNext: null,
+    dealerCardNext: null,
     playerCards: [],
     dealerCards: [],
     usedCards: [],
@@ -345,9 +346,10 @@ var TopGameControllers = {
 
 var DealerLogicController = {
     hitDealerCard: function() {
-        var dealerCardNext = TopGameControllers.randomCard();
-        console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
-        topLevelVariables.dealerCards.push(dealerCardNext);
+        topLevelVariables.dealerCardNext = TopGameControllers.randomCard();
+        console.log(`The Dealer's new card is the ${topLevelVariables.dealerCardNext.name}`);
+        topLevelVariables.dealerCards.push(topLevelVariables.dealerCardNext);
+        $('#dealerHand').append(`<img src="${topLevelVariables.dealerCardNext.src}" />`);
         return topLevelVariables.dealerCards;
     },
     dealerGameLogic: function() {
