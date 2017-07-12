@@ -367,6 +367,7 @@ var DealerLogicController = {
             //disable player buttons
             return
         }
+        $('#dealerScore span').text(topLevelVariables.dealerScore)
         return topLevelVariables.dealerScore;
 }
 }
@@ -385,6 +386,7 @@ var PlayerLogicController = {
             alert("You busted!");
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
+        $('#playerScore span').text(topLevelVariables.playerScore)
         return topLevelVariables.playerScore;
     },
     hitPlayerCard: function () {
