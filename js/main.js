@@ -263,19 +263,55 @@ var deckOfCards = [
     }
 ];
 
-function randomCard() {
-    var cardIndex = Math.round(Math.random() * 52);
-    for (i = 0; i < topLevelVariables.usedCards.length; i++){
-        if (cardIndex === topLevelVariables.usedCards[i]){
-        console.log("Duplicate Card");
-        cardIndex = Math.round(Math.random() * 52);
-        }; 
-    };
-    topLevelVariables.usedCards.push(cardIndex);
-    console.log(topLevelVariables.usedCards);
-    // console.log(this.usedcards);
-    return deckOfCards[cardIndex];
+var TopGameControllers = {
+        resetCards: function() {
+        dealerCardOne = null;
+        playerCardOne = null;
+        dealerCardTwo = null;
+        playerCardTwo = null;
+        topLevelVariables.dealerCards = [];
+        topLevelVariables.playerCards = [];
+        topLevelVariables.dealerScore = 0;
+        topLevelVariables.playerScore = 0;
+        console.log(dealerCardOne);
+        console.log(playerCardOne);
+        console.log(dealerCardTwo);
+        console.log(playerCardTwo);
+        console.log(topLevelVariables.playerCards);
+        console.log(topLevelVariables.dealerCards);
+        console.log(topLevelVariables.dealerScore);
+        console.log(topLevelVariables.playerScore);
+    },
+    startingCards: function() {
+        var dealerCardOne = TopGameControllers.randomCard();
+        var playerCardOne = TopGameControllers.randomCard();
+        var dealerCardTwo = TopGameControllers.randomCard();
+        var playerCardTwo = TopGameControllers.randomCard();
+        topLevelVariables.dealerCards.push(dealerCardOne);
+        $('#dealerCardOne').attr('src', dealerCardOne.src);
+        topLevelVariables.dealerCards.push(dealerCardTwo);
+        $('#dealerCardTwo').attr('src', dealerCardTwo.src);
+        topLevelVariables.playerCards.push(playerCardOne);
+        $('#playerCardOne').attr('src', playerCardOne.src);
+        topLevelVariables.playerCards.push(playerCardTwo);
+        $('#playerCardTwo').attr('src', playerCardTwo.src);
+        return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
+    },
+    randomCard: function() {
+        var cardIndex = Math.round(Math.random() * 52);
+        for (i = 0; i < topLevelVariables.usedCards.length; i++){
+            if (cardIndex === topLevelVariables.usedCards[i]){
+            console.log("Duplicate Card");
+            cardIndex = Math.round(Math.random() * 52);
+            }; 
+        };
+        topLevelVariables.usedCards.push(cardIndex);
+        console.log(topLevelVariables.usedCards);
+        // console.log(this.usedcards);
+        return deckOfCards[cardIndex];
+    }
 }
+
 
 //Create a function that looks through usedCards array and make sure the number isn't in there. If it is, loop back and find a different number card. 
 
@@ -293,21 +329,7 @@ var topLevelVariables = {
 }
 
 
-function startingCards() {
-    var dealerCardOne = randomCard();
-    var playerCardOne = randomCard();
-    var dealerCardTwo = randomCard();
-    var playerCardTwo = randomCard();
-    topLevelVariables.dealerCards.push(dealerCardOne);
-    $('#dealerCardOne').attr('src', dealerCardOne.src);
-    topLevelVariables.dealerCards.push(dealerCardTwo);
-    $('#dealerCardTwo').attr('src', dealerCardTwo.src);
-    topLevelVariables.playerCards.push(playerCardOne);
-    $('#playerCardOne').attr('src', playerCardOne.src);
-    topLevelVariables.playerCards.push(playerCardTwo);
-    $('#playerCardTwo').attr('src', playerCardTwo.src);
-    return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
-};
+
 
 //add functionality to push cards into usedCards array as soon as they come out. 
 
@@ -316,7 +338,7 @@ function startingCards() {
 
 var DealerLogicController = {
     hitDealerCard: function() {
-        var dealerCardNext = randomCard();
+        var dealerCardNext = TopGameControllers.randomCard();
         console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
         topLevelVariables.dealerCards.push(dealerCardNext);
         return topLevelVariables.dealerCards;
@@ -366,7 +388,7 @@ var PlayerLogicController = {
         return topLevelVariables.playerScore;
     },
     hitPlayerCard: function () {
-    var playerCardNext = randomCard();
+    var playerCardNext = TopGameControllers.randomCard();
     console.log(`Your new card is the ${playerCardNext.name}`)
     topLevelVariables.playerCards.push(playerCardNext);
     return topLevelVariables.playerCards;
@@ -385,27 +407,6 @@ var PlayerLogicController = {
 // Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
 
 
-
-
-
-function resetCards() {
-    dealerCardOne = null;
-    playerCardOne = null;
-    dealerCardTwo = null;
-    playerCardTwo = null;
-    topLevelVariables.dealerCards = [];
-    topLevelVariables.playerCards = [];
-    topLevelVariables.dealerScore = 0;
-    topLevelVariables.playerScore = 0;
-    console.log(dealerCardOne);
-    console.log(playerCardOne);
-    console.log(dealerCardTwo);
-    console.log(playerCardTwo);
-    console.log(topLevelVariables.playerCards);
-    console.log(topLevelVariables.dealerCards);
-    console.log(topLevelVariables.dealerScore);
-    console.log(topLevelVariables.playerScore);
-}
 
 //Advanced: Create Double Button for player. 
 
@@ -433,7 +434,7 @@ function resetCards() {
 // $('#startButton').on('click', runInitialFunction(event));
 
 $('#startButton').click(function() {
-  startingCards();
+  TopGameControllers.startingCards();
   DealerLogicController.calculateDealerScore();
   PlayerLogicController.calculatePlayerScore();
 });
@@ -453,11 +454,11 @@ $('#stayButton').click(function() {
 });
 
 $('#newCardButton').click(function() {
-    randomCard();
+    TopGameControllers.randomCard();
 });
 
 $('#resetCardButton').click(function() {
-    resetCards();
+    TopGameControllers.resetCards();
 });
 
 
