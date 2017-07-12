@@ -62,6 +62,10 @@ function hitPlayerCard() {
     return playerCards;
 }
 
+function stayPlayerCard() {
+
+}
+
 //Advanced: Create Double Button for player. 
 
 //Advanced: Create Split Button for player. 
@@ -102,10 +106,14 @@ $('#hitButton').click(function() {
     console.log("Take another card");
     hitPlayerCard();
     calculatePlayerScore();
-    if (playerScore > 21){
-        alert("You busted!");
-    }
+    // if (playerScore > 21){
+    //     alert("You busted!");
+    // }
 });
+
+$('#stayButton').click(function() {
+    console.log("Stay with your cards");
+})
 
 function addCardDisplay() {
     $('#playerHand').append(`<img id="ace" src="images/card-images/ace_of_hearts.png"/>`)
@@ -325,6 +333,6 @@ var deckOfCards = [
         name: "King of Clubs",
         value: 10,
     }
-]
+];
 
 };
