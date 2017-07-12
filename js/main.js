@@ -216,12 +216,15 @@ var deckOfCards = [
 function randomCard() {
     var cardIndex = Math.round(Math.random() * 52);
     console.log(cardIndex)
-    if (cardIndex === usedCards[0]){
+    for (i = 0; i < usedCards.length; i++){
+        if (cardIndex === usedCards[i]){
         console.log("Duplicate Card");
-        randomCard();
-    }
+        cardIndex = Math.round(Math.random() * 52);
+        }; 
+    };
     usedCards.push(cardIndex);
-    console.log(this.usedcards);
+    console.log(usedCards);
+    // console.log(this.usedcards);
     return deckOfCards[cardIndex];
 }
 
