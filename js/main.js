@@ -215,7 +215,6 @@ var deckOfCards = [
 
 function randomCard() {
     var cardIndex = Math.round(Math.random() * 52);
-    console.log(cardIndex)
     for (i = 0; i < usedCards.length; i++){
         if (cardIndex === usedCards[i]){
         console.log("Duplicate Card");
@@ -248,8 +247,6 @@ function startingCards() {
     dealerCards.push(dealerCardTwo)
     playerCards.push(playerCardOne);
     playerCards.push(playerCardTwo);
-    console.log(dealerCards);
-    console.log(playerCards);
     return [dealerCards, playerCards];
 };
 
@@ -264,9 +261,19 @@ function calculateDealerScore(){
         dealerScore = dealerCards[i].value + dealerScore;
     }
     console.log(`Dealer score: ${dealerScore}`);
+    if (dealerCards.length === 2 && dealerScore === 21){
+        console.log("Dealer has blackjack!");
+        //Advanced feature. If dealer score = 21, display Blackjack.
+        //disable player buttons
+        return
+    } else if (dealerScore > 21) {
+        console.log("Dealer busts!");
+    } else if (dealerScore >= 17 ){
+        console.log("Dealer stands on " + dealerScore);
+    }
     return dealerScore;
 }
-//Advanced feature. If dealer score = 21, display Blackjack.
+
 
 //Push player cards into player array. 
 
@@ -277,6 +284,9 @@ function calculatePlayerScore(){
     var playerScore = 0;
     for (i = 0; i < playerCards.length; i++){
         playerScore = playerCards[i].value + playerScore;
+    }
+    if (playerScore > 21){
+        console.log("You busted!");
     }
     console.log(`Player Score: ${playerScore}`);
     return playerScore;
@@ -291,6 +301,31 @@ function hitPlayerCard() {
     return playerCards;
 }
 
+function hitDealerCard() {
+    var dealerCardNext = randomCard();
+    console.log(`The Dealer's new card is the ${dealerCardNext.name}`);
+    dealerCards.push(dealerCardNext);
+    return dealerCards;
+}
+
+function resetCards() {
+    dealerCardOne = null;
+    playerCardOne = null;
+    dealerCardTwo = null;
+    playerCardTwo = null;
+    dealerCards = [];
+    playerCards = [];
+    dealerScore = 0;
+    playerScore = 0;
+    console.log(dealerCardOne);
+    console.log(playerCardOne);
+    console.log(dealerCardTwo);
+    console.log(playerCardTwo);
+    console.log(playerCards);
+    console.log(dealerCards);
+    console.log(dealerScore);
+    console.log(playerScore);
+}
 
 //Advanced: Create Double Button for player. 
 
@@ -340,6 +375,9 @@ $('#newCardButton').click(function() {
     randomCard();
 });
 
+$('#resetCardButton').click(function() {
+    resetCards();
+});
 
 
 // function addCardDisplay() {
