@@ -316,12 +316,21 @@ function calculateDealerScore(){
         //Advanced feature. If dealer score = 21, display Blackjack.
         //disable player buttons
         return
-    } else if (dealerScore > 21) {
+    }
+    return dealerScore;
+}
+
+function dealerGameLogic() {
+    console.log("Run dealerGame logic");
+    console.log(dealerScore);
+    if (dealerScore > 21) {
         console.log("Dealer busts!");
     } else if (dealerScore >= 17 ){
         console.log("Dealer stands on " + dealerScore);
-    }
-    return dealerScore;
+    } else if (dealerScore < 17){
+        console.log("Call hitDealerCard function");
+        hitDealerCard();
+    };
 }
 
 
@@ -349,6 +358,13 @@ function hitPlayerCard() {
     console.log(`Your new card is the ${playerCardNext.name}`)
     playerCards.push(playerCardNext);
     return playerCards;
+}
+
+function stayPlayerCard(){
+    console.log("Call calculatePlayerScore function");
+    calculatePlayerScore();
+    console.log("Call dealerGameLogic function");
+    dealerGameLogic();
 }
 
 function hitDealerCard() {
@@ -419,6 +435,7 @@ $('#hitButton').click(function() {
 
 $('#stayButton').click(function() {
     console.log("Stay with your cards");
+    stayPlayerCard();
 });
 
 $('#newCardButton').click(function() {
