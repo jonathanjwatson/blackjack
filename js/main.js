@@ -289,6 +289,7 @@ var topLevelVariables = {
     usedCards: [],
     dealerScore: 0,
     playerScore: 0,
+    playerFinish: false,
 }
 
 
@@ -363,25 +364,28 @@ var PlayerLogicController = {
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
         return topLevelVariables.playerScore;
-}
-}
-
-
-//Create a Stay Button for player. 
-// Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
-function hitPlayerCard() {
+    },
+    hitPlayerCard: function () {
     var playerCardNext = randomCard();
     console.log(`Your new card is the ${playerCardNext.name}`)
     topLevelVariables.playerCards.push(playerCardNext);
     return topLevelVariables.playerCards;
-}
+    },
+    stayPlayerCard: function(){
+        console.log("Call calculatePlayerScore function");
+        PlayerLogicController.calculatePlayerScore();
+        topLevelVariables.playerFinish = true;
+        console.log("Call dealerGameLogic function");
+        DealerLogicController.dealerGameLogic();
+    }
+};
 
-function stayPlayerCard(){
-    console.log("Call calculatePlayerScore function");
-    PlayerLogicController.calculatePlayerScore();
-    console.log("Call dealerGameLogic function");
-    DealerLogicController.dealerGameLogic();
-}
+
+//Create a Stay Button for player. 
+// Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
+
+
+
 
 
 function resetCards() {
@@ -436,7 +440,7 @@ $('#startButton').click(function() {
 
 $('#hitButton').click(function() {
     console.log("Take another card");
-    hitPlayerCard();
+    PlayerLogicController.hitPlayerCard();
     PlayerLogicController.calculatePlayerScore();
     // if (playerScore > 21){
     //     alert("You busted!");
@@ -445,7 +449,7 @@ $('#hitButton').click(function() {
 
 $('#stayButton').click(function() {
     console.log("Stay with your cards");
-    stayPlayerCard();
+    PlayerLogicController.stayPlayerCard();
 });
 
 $('#newCardButton').click(function() {
