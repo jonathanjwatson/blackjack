@@ -5,7 +5,7 @@
 
 //Create a function that looks through usedCards array and make sure the number isn't in there. If it is, loop back and find a different number card. 
 
-//Create INitial Setup Function
+//Create Initial Setup Function
 
 // Get one random card and assign to dealer. Hide this card.
 // Get one random card and assign to player. Display this card. 
