@@ -265,10 +265,10 @@ var deckOfCards = [
 
 var TopGameControllers = {
         resetCards: function() {
-        dealerCardOne = null;
-        playerCardOne = null;
-        dealerCardTwo = null;
-        playerCardTwo = null;
+        topLevelVariables.dealerCardOne = null;
+        topLevelVariables.playerCardOne = null;
+        topLevelVariables.dealerCardTwo = null;
+        topLevelVariables.playerCardTwo = null;
         topLevelVariables.dealerCards = [];
         topLevelVariables.playerCards = [];
         topLevelVariables.dealerScore = 0;
@@ -292,12 +292,12 @@ var TopGameControllers = {
         topLevelVariables.playerCardOne = TopGameControllers.randomCard();
         topLevelVariables.dealerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.playerCardTwo = TopGameControllers.randomCard();
-        topLevelVariables.dealerCards.push(dealerCardOne);
-        topLevelVariables.dealerCards.push(dealerCardTwo);
+        topLevelVariables.dealerCards.push(topLevelVariables.dealerCardOne);
+        topLevelVariables.dealerCards.push(topLevelVariables.dealerCardTwo);
         $('#dealerCardTwo').attr('src', topLevelVariables.dealerCardTwo.src);
-        topLevelVariables.playerCards.push(playerCardOne);
+        topLevelVariables.playerCards.push(topLevelVariables.playerCardOne);
         $('#playerCardOne').attr('src', topLevelVariables.playerCardOne.src);
-        topLevelVariables.playerCards.push(playerCardTwo);
+        topLevelVariables.playerCards.push(topLevelVariables.playerCardTwo);
         $('#playerCardTwo').attr('src', topLevelVariables.playerCardTwo.src);
         return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
     },
