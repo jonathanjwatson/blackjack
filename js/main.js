@@ -263,6 +263,20 @@ var deckOfCards = [
     }
 ];
 
+var topLevelVariables = {
+    dealerCardOne: null,
+    playerCardOne: null,
+    dealerCardTwo: null,
+    playerCardTwo: null,
+    playerCardNext: null,
+    playerCards: [],
+    dealerCards: [],
+    usedCards: [],
+    dealerScore: 0,
+    playerScore: 0,
+    playerFinish: false,
+}
+
 var TopGameControllers = {
         resetCards: function() {
         topLevelVariables.dealerCardOne = null;
@@ -326,26 +340,8 @@ var TopGameControllers = {
 // Get one random card and assign to player. Display this card. 
 // Get one random card and assign to dealer. Display this card. 
 // Get one random card and assign it to player. Display this card. 
-var topLevelVariables = {
-    dealerCardOne: null,
-    playerCardOne: null,
-    dealerCardTwo: null,
-    playerCardTwo: null,
-    playerCards: [],
-    dealerCards: [],
-    usedCards: [],
-    dealerScore: 0,
-    playerScore: 0,
-    playerFinish: false,
-}
-
-
-
 
 //add functionality to push cards into usedCards array as soon as they come out. 
-
-
-
 
 var DealerLogicController = {
     hitDealerCard: function() {
@@ -402,9 +398,11 @@ var PlayerLogicController = {
         return topLevelVariables.playerScore;
     },
     hitPlayerCard: function () {
-    var playerCardNext = TopGameControllers.randomCard();
-    console.log(`Your new card is the ${playerCardNext.name}`)
-    topLevelVariables.playerCards.push(playerCardNext);
+    topLevelVariables.playerCardNext = TopGameControllers.randomCard();
+    console.log(`Your new card is the ${topLevelVariables.playerCardNext.name}`)
+    topLevelVariables.playerCards.push(topLevelVariables.playerCardNext);
+    $('#playerHand').append(`<img src="${topLevelVariables.playerCardNext.src}" />`);
+
     return topLevelVariables.playerCards;
     },
     stayPlayerCard: function(){
