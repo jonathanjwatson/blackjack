@@ -215,6 +215,13 @@ var deckOfCards = [
 
 function randomCard() {
     var cardIndex = Math.round(Math.random() * 52);
+    console.log(cardIndex)
+    if (cardIndex === usedCards[0]){
+        console.log("Duplicate Card");
+        randomCard();
+    }
+    usedCards.push(cardIndex);
+    console.log(this.usedcards);
     return deckOfCards[cardIndex];
 }
 
@@ -281,6 +288,7 @@ function hitPlayerCard() {
     return playerCards;
 }
 
+
 //Advanced: Create Double Button for player. 
 
 //Advanced: Create Split Button for player. 
@@ -323,7 +331,13 @@ $('#hitButton').click(function() {
 
 $('#stayButton').click(function() {
     console.log("Stay with your cards");
-})
+});
+
+$('#newCardButton').click(function() {
+    randomCard();
+});
+
+
 
 // function addCardDisplay() {
 //     // console.log(deckOfCards[0].name);
