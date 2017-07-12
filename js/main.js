@@ -1,9 +1,10 @@
-window.onload = function() {
+// window.onload = function() {
 
 var deckOfCards = [
     {
         name: "Ace of Hearts",
         value: 11,
+        src: "images/card-images/ace_of_hearts.png"
     },
     {
         name: "Two of Hearts",
@@ -315,5 +316,9 @@ $('#hitButton').click(function() {
     calculatePlayerScore();
 });
 
-
+function addCardDisplay() {
+    $('#playerHand').append(`<img id="ace" src="images/card-images/ace_of_hearts.png"/>`)
 };
+
+
+// };
