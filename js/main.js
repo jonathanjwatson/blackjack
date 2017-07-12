@@ -394,6 +394,7 @@ var PlayerLogicController = {
         }
         if (topLevelVariables.playerScore > 21){
             alert("You busted!");
+            DealerLogicController.dealerGameLogic();
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
         $('#playerScore span').text(topLevelVariables.playerScore)
