@@ -285,6 +285,9 @@ var TopGameControllers = {
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
         $('#playerCardTwo').attr('src', 'images/card-images/back.png');
+        $('#playerScore span').text('Player Score');
+        $('#dealerScore span').text('Dealer Score');
+
         
     },
     startingCards: function() {
