@@ -298,9 +298,13 @@ function startingCards() {
     var dealerCardTwo = randomCard();
     var playerCardTwo = randomCard();
     topLevelVariables.dealerCards.push(dealerCardOne);
-    topLevelVariables.dealerCards.push(dealerCardTwo)
+    $('#dealerCardOne').attr('src', dealerCardOne.src);
+    topLevelVariables.dealerCards.push(dealerCardTwo);
+    $('#dealerCardTwo').attr('src', dealerCardTwo.src);
     topLevelVariables.playerCards.push(playerCardOne);
+    $('#playerCardOne').attr('src', playerCardOne.src);
     topLevelVariables.playerCards.push(playerCardTwo);
+    $('#playerCardTwo').attr('src', playerCardTwo.src);
     return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
 };
 
@@ -321,7 +325,6 @@ var DealerLogicController = {
         console.log(topLevelVariables.dealerScore);
         if (topLevelVariables.dealerScore > 21) {
             alert("Dealer busts!");
-            resetCards();
         } else if (topLevelVariables.dealerScore >= 17 ){
             console.log("Dealer stands on " + topLevelVariables.dealerScore);
         } else if (topLevelVariables.dealerScore < 17){
@@ -338,12 +341,8 @@ var DealerLogicController = {
         console.log(`Dealer score: ${topLevelVariables.dealerScore}`);
         if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
             alert("Dealer has blackjack!");
-            resetCards();
-            //Advanced feature. If dealer score = 21, display Blackjack.
             //disable player buttons
             return
-        } else {
-            DealerLogicController.dealerGameLogic();
         }
         return topLevelVariables.dealerScore;
 }
@@ -357,11 +356,10 @@ var PlayerLogicController = {
     calculatePlayerScore: function(){
         topLevelVariables.playerScore = 0;
         for (i = 0; i < topLevelVariables.playerCards.length; i++){
-            topLevelVariables.playerScore = topLevelVariables.playerCards[i].value + topLevelVariables.playerScore;
+            topLevelVariables.playerScore += topLevelVariables.playerCards[i].value;
         }
         if (topLevelVariables.playerScore > 21){
             alert("You busted!");
-            resetCards();
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
         return topLevelVariables.playerScore;
