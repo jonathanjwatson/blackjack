@@ -421,7 +421,13 @@ var PlayerLogicController = {
         if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
             setTimeout(alert("You got Blackjack!"), 3000);
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
-        } else if (topLevelVariables.playerScore > 21){
+        } else if (topLevelVariables.playerScore > 21) {
+            for (i = 0; i < topLevelVariables.playerCards.length; i++){
+                if (topLevelVariables.playerCards[i].value === 11){
+                    topLevelVariables.playerCards[i].value = 1;
+                    return;
+                }
+            }
             alert("You busted!");
             DealerLogicController.dealerGameLogic();
         }
