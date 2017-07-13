@@ -428,8 +428,9 @@ var PlayerLogicController = {
                     return;
                 }
             }
-            alert("You busted!");
-            DealerLogicController.dealerGameLogic();
+            $('#alertConsole p').text("You busted!");
+            setTimeout(function(){ DealerLogicController.dealerGameLogic(); }, 2000);
+            
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
         $('#playerScore span').text(topLevelVariables.playerScore)
