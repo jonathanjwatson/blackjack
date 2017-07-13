@@ -506,10 +506,6 @@ $('#stayButton').click(function() {
     PlayerLogicController.stayPlayerCard();
 });
 
-$('#newCardButton').click(function() {
-    TopGameControllers.randomCard();
-});
-
 $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
