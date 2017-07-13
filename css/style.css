@@ -1,6 +1,7 @@
 body {
   /* Location of the image */
-  background-image: url(background.jpg);
+  /* background-image: url(background.jpg); */
+  background-image: linear-gradient(to bottom, rgba(57, 207, 57, 0.5) 0%, rgba(57, 207, 57, 0.5) 100%), url(background.jpg);
   
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
@@ -19,6 +20,7 @@ body {
   /* Set a background color that will be displayed
      while the background image is loading */
   background-color: #F8F8F8;
+
 }
 .row {
     text-align:center;

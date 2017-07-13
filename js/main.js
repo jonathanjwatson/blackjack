@@ -279,6 +279,7 @@ var topLevelVariables = {
     playerBust: false,
     dealerFinish: false,
     dealerBust: false,
+    newDealButton: false,
 }
 
 var TopGameControllers = {
@@ -289,8 +290,13 @@ var TopGameControllers = {
         topLevelVariables.playerCardTwo = null;
         topLevelVariables.dealerCards = [];
         topLevelVariables.playerCards = [];
+        topLevelVariables.usedCards = [];
         topLevelVariables.dealerScore = 0;
         topLevelVariables.playerScore = 0;
+        topLevelVariables.playerFinish = false;
+        topLevelVariables.playerBust = false;
+        topLevelVariables.dealerBust = false;
+        topLevelVariables.dealerFinish = false;
         $('#dealerCardOne').attr('src', 'images/card-images/back.png');
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
@@ -304,6 +310,9 @@ var TopGameControllers = {
         $('#playerHand').append(`<img id="playerCardOne" src="images/card-images/back.png" />`);
         $('#playerHand').append(`<img id="playerCardTwo" src="images/card-images/back.png" />`);
         $('#alertConsole').html(`<p></p>`);
+        $('#winnerConsole').css('background-color', 'white');
+        $('#hitButton').prop('disabled', false);
+        $('#stayButton').prop('disabled', false);
 
         
     },
@@ -334,25 +343,30 @@ var TopGameControllers = {
         // console.log(this.usedcards);
         return deckOfCards[cardIndex];
     },
-    resetForNewGame: function() {
-        var r = confirm("Play another game?");
-        if (r === true) {
-            TopGameControllers.resetCards();
-        } else {
-            txt = "You pressed Cancel!";
-        }
-    },
+    // resetForNewGame: function() {
+    //     var r = confirm("Play another game?");
+    //     if (r === true) {
+    //         TopGameControllers.resetCards();
+    //     } else {
+    //         txt = "You pressed Cancel!";
+    //     }
+    // },
     determineWinner: function() {
         if (topLevelVariables.playerBust === true){
-            console.log("You lose!");
+            alert("You lose!");
+            $('#winnerConsole').css('background-color', 'red');
         } else if (topLevelVariables.dealerBust === true){
-            console.log("You win!");
+            alert("You win!");
+            $('#winnerConsole').css('background-color', 'green');
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
-            console.log("You won!");
+            alert("You won!");
+            $('#winnerConsole').css('background-color', 'green');
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
-            console.log("You lose!");
+            alert("You lose!");
+            $('#winnerConsole').css('background-color', 'red');
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
-            console.log("It's a push");
+            alert("It's a push");
+            $('#winnerConsole').css('background-color', 'yellow');
         }
     }
 }
@@ -377,10 +391,12 @@ var DealerLogicController = {
     },
     dealerGameLogic: function() {
         topLevelVariables.playerFinish === true;
+        $('#hitButton').prop('disabled', true);
+        $('#stayButton').prop('disabled', true);
         $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         if (topLevelVariables.dealerScore >=17) {
             $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
-            TopGameControllers.determineWinner();
+            setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
         } else if (topLevelVariables.dealerScore < 17) {
             do {
                 DealerLogicController.hitDealerCard();
@@ -389,14 +405,15 @@ var DealerLogicController = {
                 console.log("calculate dealer score")
                 if (topLevelVariables.dealerScore > 21) {
                     topLevelVariables.dealerBust = true;
+                    console.log(topLevelVariables.dealerBust);
                     $('#alertConsole p').append(`<p>Dealer busts!</p>`);
-                    TopGameControllers.determineWinner();
+                    setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
                     return;
                     // alert("Dealer busts!");
                 } else if (topLevelVariables.dealerScore >=17) {
                     console.log(topLevelVariables.dealerScore);
                     $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
-                    TopGameControllers.determineWinner();
+                    setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
                     return;
                     // alert("Dealer stands on " + topLevelVariables.dealerScore);
                 }
@@ -425,6 +442,7 @@ var DealerLogicController = {
         if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
             alert("Dealer has blackjack!");
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            TopGameControllers.determineWinner();
             //disable player buttons
             return
         } else if (topLevelVariables.playerFinish === true){
@@ -454,7 +472,6 @@ var PlayerLogicController = {
                 if (topLevelVariables.playerCards[i].value === 11){
                     topLevelVariables.playerScore -= 10;
                     $('#playerScore span').text(topLevelVariables.playerScore)
-                    return
                 }
             }
             topLevelVariables.playerBust = true;
@@ -516,9 +533,22 @@ var PlayerLogicController = {
 // $('#startButton').on('click', runInitialFunction(event));
 
 $('#startButton').click(function() {
-  TopGameControllers.startingCards();
-  DealerLogicController.calculateDealerScore();
-  PlayerLogicController.calculatePlayerScore();
+    if (topLevelVariables.newDealButton === false){
+        TopGameControllers.startingCards();
+        DealerLogicController.calculateDealerScore();
+        PlayerLogicController.calculatePlayerScore();
+        topLevelVariables.newDealButton = true;
+        console.log('Deal Button is now true');
+    } else if (topLevelVariables.newDealButton === true){
+        TopGameControllers.resetCards();
+        setTimeout(function(){ 
+            TopGameControllers.startingCards();
+            DealerLogicController.calculateDealerScore();
+            PlayerLogicController.calculatePlayerScore();
+            console.log("Deal Button is now false");
+        }, 1000);
+        
+    }
 });
 
 $('#hitButton').click(function() {
@@ -538,6 +568,7 @@ $('#stayButton').click(function() {
 $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
+$('#resetCardButton').prop('disabled', true);
 
 
 // function addCardDisplay() {
