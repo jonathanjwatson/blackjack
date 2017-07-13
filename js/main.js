@@ -334,13 +334,25 @@ var TopGameControllers = {
         // console.log(this.usedcards);
         return deckOfCards[cardIndex];
     },
+    resetForNewGame: function() {
+        var r = confirm("Play another game?");
+        if (r === true) {
+            TopGameControllers.resetCards();
+        } else {
+            txt = "You pressed Cancel!";
+        }
+    },
     determineWinner: function() {
         if (topLevelVariables.playerBust === true){
-            alert("You lose!");
-        } else if (TopLevelVariables.dealerBust === true){
-            alert("You win!");
+            console.log("You lose!");
+        } else if (topLevelVariables.dealerBust === true){
+            console.log("You win!");
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
-            alert("You won!");
+            console.log("You won!");
+        } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
+            console.log("You lose!");
+        } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
+            console.log("It's a push");
         }
     }
 }
@@ -436,6 +448,7 @@ var PlayerLogicController = {
         if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
             setTimeout(alert("You got Blackjack!"), 3000);
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            TopGameControllers.determineWinner();
         } else if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
@@ -445,8 +458,9 @@ var PlayerLogicController = {
                 }
             }
             topLevelVariables.playerBust = true;
+            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             $('#alertConsole p').append(`<p>You busted!</p>`);
-            setTimeout(function(){ DealerLogicController.dealerGameLogic(); }, 2000);
+            TopGameControllers.determineWinner();
             
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
