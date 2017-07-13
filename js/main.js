@@ -367,9 +367,23 @@ var DealerLogicController = {
         } else if (topLevelVariables.dealerScore >= 17 ){
             console.log("Dealer stands on " + topLevelVariables.dealerScore);
         } else if (topLevelVariables.dealerScore < 17){
-            console.log("Call hitDealerCard function");
-            DealerLogicController.hitDealerCard();
-            DealerLogicController.calculateDealerScore();
+            do {
+                DealerLogicController.hitDealerCard();
+                DealerLogicController.calculateDealerScore();
+            }
+            while (topLevelVariables.dealerScore < 17);
+
+            // console.log("Call hitDealerCard function");
+            
+            // if (topLevelVariables.dealerScore > 21) {
+            //     alert("Dealer busts!");
+            // } else if (topLevelVariables.dealerScore >= 17 ){
+            // console.log("Dealer stands on " + topLevelVariables.dealerScore);
+            // } else if (topLevelVariables.dealerScore < 17){
+            // console.log("Call hitDealerCard function");
+            // DealerLogicController.hitDealerCard();
+            // }
+            // DealerLogicController.calculateDealerScore();
         };
     },
     calculateDealerScore: function(){
