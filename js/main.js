@@ -330,6 +330,11 @@ var TopGameControllers = {
         console.log(topLevelVariables.usedCards);
         // console.log(this.usedcards);
         return deckOfCards[cardIndex];
+    },
+    determineWinner: function() {
+        if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
+            alert("You won!");
+        }
     }
 }
 
@@ -401,8 +406,10 @@ var DealerLogicController = {
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             //disable player buttons
             return
+        } else if (topLevelVariables.dealerCards.length >= 3){
+            $('#dealerScore span').text(topLevelVariables.dealerScore)
         }
-        $('#dealerScore span').text(topLevelVariables.dealerScore)
+
         return topLevelVariables.dealerScore;
 }
 }
