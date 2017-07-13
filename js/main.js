@@ -288,14 +288,6 @@ var TopGameControllers = {
         topLevelVariables.playerCards = [];
         topLevelVariables.dealerScore = 0;
         topLevelVariables.playerScore = 0;
-        // console.log(dealerCardOne);
-        // console.log(playerCardOne);
-        // console.log(dealerCardTwo);
-        // console.log(playerCardTwo);
-        // console.log(topLevelVariables.playerCards);
-        // console.log(topLevelVariables.dealerCards);
-        // console.log(topLevelVariables.dealerScore);
-        // console.log(topLevelVariables.playerScore);
         $('#dealerCardOne').attr('src', 'images/card-images/back.png');
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
@@ -308,6 +300,7 @@ var TopGameControllers = {
         $('#dealerHand').append(`<img id="dealerCardTwo" src="images/card-images/back.png" />`);
         $('#playerHand').append(`<img id="playerCardOne" src="images/card-images/back.png" />`);
         $('#playerHand').append(`<img id="playerCardTwo" src="images/card-images/back.png" />`);
+        $('#alertConsole').html(`<p></p>`);
 
         
     },
@@ -373,9 +366,12 @@ var DealerLogicController = {
                 console.log("calculate dealer score")
                 if (topLevelVariables.dealerScore > 21) {
                     $('#alertConsole p').append(`<p>Dealer busts!</p>`);
+                    return;
                     // alert("Dealer busts!");
                 } else if (topLevelVariables.dealerScore >=17) {
+                    console.log(topLevelVariables.dealerScore);
                     $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
+                    return;
                     // alert("Dealer stands on " + topLevelVariables.dealerScore);
                 }
             }
