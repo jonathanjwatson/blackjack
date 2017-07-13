@@ -276,6 +276,9 @@ var topLevelVariables = {
     dealerScore: 0,
     playerScore: 0,
     playerFinish: false,
+    playerBust: false,
+    dealerFinish: false,
+    dealerBust: false,
 }
 
 var TopGameControllers = {
@@ -332,7 +335,11 @@ var TopGameControllers = {
         return deckOfCards[cardIndex];
     },
     determineWinner: function() {
-        if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
+        if (topLevelVariables.playerBust === true){
+            alert("You lose!");
+        } else if (TopLevelVariables.dealerBust === true){
+            alert("You win!");
+        } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
             alert("You won!");
         }
     }
@@ -357,25 +364,27 @@ var DealerLogicController = {
         return topLevelVariables.dealerCards;
     },
     dealerGameLogic: function() {
+        topLevelVariables.playerFinish === true;
         $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
-        console.log("Run dealerGame logic");
-        console.log(topLevelVariables.dealerScore);
-        if (topLevelVariables.dealerScore >=17){
+        if (topLevelVariables.dealerScore >=17) {
             $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
-            // alert("Dealer stands on " + topLevelVariables.dealerScore);
-        } else if (topLevelVariables.dealerScore < 17){
+            TopGameControllers.determineWinner();
+        } else if (topLevelVariables.dealerScore < 17) {
             do {
                 DealerLogicController.hitDealerCard();
                 console.log("hit dealer card");
                 DealerLogicController.calculateDealerScore();
                 console.log("calculate dealer score")
                 if (topLevelVariables.dealerScore > 21) {
+                    topLevelVariables.dealerBust = true;
                     $('#alertConsole p').append(`<p>Dealer busts!</p>`);
+                    TopGameControllers.determineWinner();
                     return;
                     // alert("Dealer busts!");
                 } else if (topLevelVariables.dealerScore >=17) {
                     console.log(topLevelVariables.dealerScore);
                     $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
+                    TopGameControllers.determineWinner();
                     return;
                     // alert("Dealer stands on " + topLevelVariables.dealerScore);
                 }
@@ -406,7 +415,7 @@ var DealerLogicController = {
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             //disable player buttons
             return
-        } else if (topLevelVariables.dealerCards.length >= 3){
+        } else if (topLevelVariables.playerFinish === true){
             $('#dealerScore span').text(topLevelVariables.dealerScore)
         }
 
@@ -430,9 +439,12 @@ var PlayerLogicController = {
         } else if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
-                    return topLevelVariables.playerCards[i].value = 1;
+                    topLevelVariables.playerScore -= 10;
+                    $('#playerScore span').text(topLevelVariables.playerScore)
+                    return
                 }
             }
+            topLevelVariables.playerBust = true;
             $('#alertConsole p').append(`<p>You busted!</p>`);
             setTimeout(function(){ DealerLogicController.dealerGameLogic(); }, 2000);
             
