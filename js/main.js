@@ -302,6 +302,12 @@ var TopGameControllers = {
         $('#playerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerScore span').text('Player Score');
         $('#dealerScore span').text('Dealer Score');
+        $('#dealerHand').html('');
+        $('#playerHand').html('');
+        $('#dealerHand').append(`<img id="dealerCardOne" src="images/card-images/back.png" />`);
+        $('#dealerHand').append(`<img id="dealerCardTwo" src="images/card-images/back.png" />`);
+        $('#playerHand').append(`<img id="playerCardOne" src="images/card-images/back.png" />`);
+        $('#playerHand').append(`<img id="playerCardTwo" src="images/card-images/back.png" />`);
 
         
     },
