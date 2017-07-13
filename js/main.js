@@ -362,14 +362,19 @@ var DealerLogicController = {
         $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         console.log("Run dealerGame logic");
         console.log(topLevelVariables.dealerScore);
-        if (topLevelVariables.dealerScore > 21) {
-            alert("Dealer busts!");
-        } else if (topLevelVariables.dealerScore >= 17 ){
-            console.log("Dealer stands on " + topLevelVariables.dealerScore);
+        if (topLevelVariables.dealerScore >=17){
+            alert("Dealer stands on " + topLevelVariables.dealerScore);
         } else if (topLevelVariables.dealerScore < 17){
             do {
                 DealerLogicController.hitDealerCard();
+                console.log("hit dealer card");
                 DealerLogicController.calculateDealerScore();
+                console.log("calculate dealer score")
+                if (topLevelVariables.dealerScore > 21) {
+                    alert("Dealer busts!");
+                } else if (topLevelVariables.dealerScore >=17) {
+                    alert("Dealer stands on " + topLevelVariables.dealerScore);
+                }
             }
             while (topLevelVariables.dealerScore < 17);
 
@@ -384,7 +389,7 @@ var DealerLogicController = {
             // DealerLogicController.hitDealerCard();
             // }
             // DealerLogicController.calculateDealerScore();
-        };
+        }
     },
     calculateDealerScore: function(){
         topLevelVariables.dealerScore = 0;
