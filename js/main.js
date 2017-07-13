@@ -326,11 +326,11 @@ var TopGameControllers = {
         return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
     },
     randomCard: function() {
-        var cardIndex = Math.round(Math.random() * 52);
+        var cardIndex = Math.floor(Math.random() * 52);
         for (i = 0; i < topLevelVariables.usedCards.length; i++){
             if (cardIndex === topLevelVariables.usedCards[i]){
             console.log("Duplicate Card");
-            cardIndex = Math.round(Math.random() * 52);
+            cardIndex = Math.floor(Math.random() * 52);
             }; 
         };
         topLevelVariables.usedCards.push(cardIndex);
@@ -353,7 +353,7 @@ var TopGameControllers = {
 var DealerLogicController = {
     hitDealerCard: function() {
         topLevelVariables.dealerCardNext = TopGameControllers.randomCard();
-        console.log(`The Dealer's new card is the ${topLevelVariables.dealerCardNext.name}`);
+        // console.log(`The Dealer's new card is the ${topLevelVariables.dealerCardNext.name}`);
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardNext);
         $('#dealerHand').append(`<img src="${topLevelVariables.dealerCardNext.src}" />`);
         return topLevelVariables.dealerCards;
@@ -363,7 +363,8 @@ var DealerLogicController = {
         console.log("Run dealerGame logic");
         console.log(topLevelVariables.dealerScore);
         if (topLevelVariables.dealerScore >=17){
-            alert("Dealer stands on " + topLevelVariables.dealerScore);
+            $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
+            // alert("Dealer stands on " + topLevelVariables.dealerScore);
         } else if (topLevelVariables.dealerScore < 17){
             do {
                 DealerLogicController.hitDealerCard();
@@ -371,9 +372,11 @@ var DealerLogicController = {
                 DealerLogicController.calculateDealerScore();
                 console.log("calculate dealer score")
                 if (topLevelVariables.dealerScore > 21) {
-                    alert("Dealer busts!");
+                    $('#alertConsole p').append(`<p>Dealer busts!</p>`);
+                    // alert("Dealer busts!");
                 } else if (topLevelVariables.dealerScore >=17) {
-                    alert("Dealer stands on " + topLevelVariables.dealerScore);
+                    $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
+                    // alert("Dealer stands on " + topLevelVariables.dealerScore);
                 }
             }
             while (topLevelVariables.dealerScore < 17);
@@ -424,11 +427,10 @@ var PlayerLogicController = {
         } else if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
-                    topLevelVariables.playerCards[i].value = 1;
-                    return;
+                    return topLevelVariables.playerCards[i].value = 1;
                 }
             }
-            $('#alertConsole p').text("You busted!");
+            $('#alertConsole p').append(`<p>You busted!</p>`);
             setTimeout(function(){ DealerLogicController.dealerGameLogic(); }, 2000);
             
         }
