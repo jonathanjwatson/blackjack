@@ -288,14 +288,14 @@ var TopGameControllers = {
         topLevelVariables.playerCards = [];
         topLevelVariables.dealerScore = 0;
         topLevelVariables.playerScore = 0;
-        console.log(dealerCardOne);
-        console.log(playerCardOne);
-        console.log(dealerCardTwo);
-        console.log(playerCardTwo);
-        console.log(topLevelVariables.playerCards);
-        console.log(topLevelVariables.dealerCards);
-        console.log(topLevelVariables.dealerScore);
-        console.log(topLevelVariables.playerScore);
+        // console.log(dealerCardOne);
+        // console.log(playerCardOne);
+        // console.log(dealerCardTwo);
+        // console.log(playerCardTwo);
+        // console.log(topLevelVariables.playerCards);
+        // console.log(topLevelVariables.dealerCards);
+        // console.log(topLevelVariables.dealerScore);
+        // console.log(topLevelVariables.playerScore);
         $('#dealerCardOne').attr('src', 'images/card-images/back.png');
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
@@ -374,6 +374,7 @@ var DealerLogicController = {
         console.log(`Dealer score: ${topLevelVariables.dealerScore}`);
         if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
             alert("Dealer has blackjack!");
+            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             //disable player buttons
             return
         }
@@ -392,7 +393,10 @@ var PlayerLogicController = {
         for (i = 0; i < topLevelVariables.playerCards.length; i++){
             topLevelVariables.playerScore += topLevelVariables.playerCards[i].value;
         }
-        if (topLevelVariables.playerScore > 21){
+        if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
+            setTimeout(alert("You got Blackjack!"), 3000);
+            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+        } else if (topLevelVariables.playerScore > 21){
             alert("You busted!");
             DealerLogicController.dealerGameLogic();
         }
