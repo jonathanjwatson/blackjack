@@ -309,7 +309,6 @@ var TopGameControllers = {
         $('#dealerHand').append(`<img id="dealerCardTwo" src="images/card-images/back.png" />`);
         $('#playerHand').append(`<img id="playerCardOne" src="images/card-images/back.png" />`);
         $('#playerHand').append(`<img id="playerCardTwo" src="images/card-images/back.png" />`);
-        $('#alertConsole').html(`<p></p>`);
         TopGameControllers.enablePlayerButtons();
     },
     disablePlayerButtons: function() {
@@ -353,17 +352,14 @@ var TopGameControllers = {
         $('#startButton').prop('disabled', false);
         if (topLevelVariables.playerBust === true){
             alert("You busted! You lose!");
-            $('#winnerConsole').css('background-color', 'red');
         } else if (topLevelVariables.dealerBust === true){
             alert("You win!");
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
             alert("You won!");
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
             alert("You lose!");
-            $('#winnerConsole').css('background-color', 'red');
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
             alert("It's a push");
-            $('#winnerConsole').css('background-color', 'yellow');
         }
     },
     checkforBlackJack: function() {
@@ -419,7 +415,6 @@ var DealerLogicController = {
             topLevelVariables.dealerBust = true;
             alert("Dealer busts!");
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
-            $('#alertConsole p').append(`<p>Dealer busted!</p>`);
             console.log(`Dealer Score: ${topLevelVariables.dealerScore}`);
             $('#dealerScore span').text(topLevelVariables.dealerScore);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
@@ -460,7 +455,6 @@ var PlayerLogicController = {
             }
             topLevelVariables.playerBust = true;
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
-            $('#alertConsole p').append(`<p>You busted!</p>`);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
