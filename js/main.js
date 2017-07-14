@@ -474,9 +474,10 @@ var PlayerLogicController = {
         } else if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
-                    topLevelVariables.playerScore -= 10;
+                    topLevelVariables.playerCards[i].value = 1;
                     $('#playerScore span').text(topLevelVariables.playerScore)
                     PlayerLogicController.calculatePlayerScore();
+                    return
                 }
             }
             topLevelVariables.playerBust = true;
