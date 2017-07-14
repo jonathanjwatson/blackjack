@@ -291,7 +291,7 @@ var jQueryVariables = {
     $dealerScoreSpan: $('#dealerScore span'),
     $hitButton: $('#hitButton'),
     $stayButton: $('#stayButton'),
-    $startButton: $('#startButton')
+    $startButton: $('#startButton'),
 }
 
 var TopGameControllers = {
@@ -376,7 +376,7 @@ var TopGameControllers = {
     // },
     determineWinner: function() {
         TopGameControllers.disablePlayerButtons();
-        $('#startButton').prop('disabled', false);
+        jQueryVariables.$startButton.prop('disabled', false);
         if (topLevelVariables.playerBust === true){
             alert("You busted! You lose!");
             $('#winnerConsole').css('background-color', 'red');
@@ -524,7 +524,7 @@ jQueryVariables.$startButton.click(function() {
         // console.log('Deal Button is now true');
     } else if (topLevelVariables.newDealButton === true){
         TopGameControllers.resetCards();
-        $('#startButton').prop('disabled', true);
+        jQueryVariables.$startButton.prop('disabled', true);
         setTimeout(function(){ 
             TopGameControllers.startingCards();
             DealerLogicController.calculateDealerScore();
@@ -542,16 +542,10 @@ jQueryVariables.$hitButton.click(function() {
     //     alert("You busted!");
     // }
 });
-
 jQueryVariables.$stayButton.click(function() {
     console.log("Stay with your cards");
     PlayerLogicController.stayPlayerCard();
-});
-
-$('#resetCardButton').click(function() {
-    TopGameControllers.resetCards();
-});
-$('#resetCardButton').prop('disabled', true);
+})
 
 TopGameControllers.disablePlayerButtons();
 
