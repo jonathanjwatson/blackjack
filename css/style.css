@@ -42,3 +42,7 @@ p {
     margin:5px;
     padding:1px;
 }
+span{
+    color: white;
+    text-shadow: 1px 1px #000;
+}

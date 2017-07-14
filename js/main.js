@@ -320,7 +320,7 @@ var TopGameControllers = {
         $('#stayButton').prop('disabled', false)  
     },
     startingCards: function() {
-        topLevelVariables.dealerCardOne = deckOfCards[0];
+        topLevelVariables.dealerCardOne = TopGameControllers.randomCard();
         topLevelVariables.playerCardOne = TopGameControllers.randomCard();
         topLevelVariables.dealerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.playerCardTwo = TopGameControllers.randomCard();
