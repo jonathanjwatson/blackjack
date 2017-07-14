@@ -366,8 +366,8 @@ var TopGameControllers = {
         DealerLogicController.calculateDealerScore();
         PlayerLogicController.calculatePlayerScore();
         if (topLevelVariables.dealerScore === 21 && topLevelVariables.dealerCards.length === 2){
-            setTimeout(alert("Dealer has Blackjack!"), 3000);
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            setTimeout(alert("Dealer has Blackjack!"), 3000);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
         } else if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
             setTimeout(alert("You got Blackjack!"), 3000);
