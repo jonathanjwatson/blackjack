@@ -321,12 +321,11 @@ var TopGameControllers = {
         $('#stayButton').prop('disabled', false)  
     },
     startingCards: function() {
-        topLevelVariables.dealerCardOne = TopGameControllers.randomCard();
+        topLevelVariables.dealerCardOne = deckOfCards[0];
         topLevelVariables.playerCardOne = TopGameControllers.randomCard();
         topLevelVariables.dealerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.playerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardOne);
-        // $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardTwo);
         $('#dealerCardTwo').attr('src', topLevelVariables.dealerCardTwo.src);
         topLevelVariables.playerCards.push(topLevelVariables.playerCardOne);
@@ -349,14 +348,6 @@ var TopGameControllers = {
         // console.log(this.usedcards);
         return deckOfCards[cardIndex];
     },
-    // resetForNewGame: function() {
-    //     var r = confirm("Play another game?");
-    //     if (r === true) {
-    //         TopGameControllers.resetCards();
-    //     } else {
-    //         txt = "You pressed Cancel!";
-    //     }
-    // },
     determineWinner: function() {
         TopGameControllers.disablePlayerButtons();
         $('#startButton').prop('disabled', false);
@@ -416,9 +407,11 @@ var DealerLogicController = {
         if (topLevelVariables.dealerScore > 21) {
             console.log("dealerGameLogic: dealer has more than 21");
             for (i = 0; i < topLevelVariables.dealerCards.length; i++){
+                console.log(topLevelVariables.dealerCards[i].value);
                 if (topLevelVariables.dealerCards[i].value === 11){
                     topLevelVariables.dealerCards[i].value = 1;
-                    $('#dealerScore span').text(topLevelVariables.dealerScore)
+                    $('#dealerScore span').text(topLevelVariables.dealerScore);
+                    DealerLogicController.calculateDealerScore();
                     DealerLogicController.dealerGameLogic();
                     return
                 }
