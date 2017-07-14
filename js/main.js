@@ -280,6 +280,8 @@ var topLevelVariables = {
     dealerFinish: false,
     dealerBust: false,
     newDealButton: false,
+    winScore: 0,
+    lossScore: 0,
 }
 
 var TopGameControllers = {
@@ -352,14 +354,23 @@ var TopGameControllers = {
         $('#startButton').prop('disabled', false);
         if (topLevelVariables.playerBust === true){
             setTimeout(function(){ alert("You busted! You lose!"); }, 650);
+            topLevelVariables.lossScore += 1;
+            TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerBust === true){
             setTimeout(function(){ alert("Dealer busted! You win!"); }, 650);
+            topLevelVariables.winScore += 1;
+            TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
             setTimeout(function(){ alert("You won!"); }, 650);
+            topLevelVariables.winScore += 1;
+            TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
             setTimeout(function(){ alert("You lose!"); }, 650);
+            topLevelVariables.lossScore += 1;
+            TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
             setTimeout(function(){ alert("It's a push"); }, 650);
+            TopGameControllers.displayWinsLosses();
         }
     },
     checkforBlackJack: function() {
@@ -373,6 +384,9 @@ var TopGameControllers = {
             setTimeout(alert("You got Blackjack!"), 3000);
             setTimeout(function(){TopGameControllers.determineWinner(); }, 750);
         }
+    },
+    displayWinsLosses: function() {
+        console.log(`Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}`);
     }
 }
 
@@ -475,37 +489,6 @@ var PlayerLogicController = {
         DealerLogicController.dealerGameLogic();
     }
 };
-
-
-//Create a Stay Button for player. 
-// Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
-
-
-
-//Advanced: Create Double Button for player. 
-
-//Advanced: Create Split Button for player. 
-//If playerCards[0].value === playerCards[1].value, then create Split Button. 
-
-//IF player hits Stay, push playerCards into usedCards array. 
-
-//If player points exceeds 21, alert "Bust!" and push playerCards into usedCards array. ;
-
-//Start dealing dealer cards.
-
-//Once Player is done taking cards, show dealer cards, then start taking dealer cards. 
-
-//If 
-
-
-//When everybody has as many cards as they want, evaluate who has a higher score. 
-
-
-
-
-
-//Start button click handler. 
-// $('#startButton').on('click', runInitialFunction(event));
 
 $('#startButton').click(function() {
     if (topLevelVariables.newDealButton === false){
