@@ -387,18 +387,9 @@ var TopGameControllers = {
     },
     displayWinsLosses: function() {
         console.log(`Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}`);
+        $('#winLossCounter').html(`<p>Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}</p>`);
     }
 }
-
-
-//Create a function that looks through usedCards array and make sure the number isn't in there. If it is, loop back and find a different number card. 
-
-// Get one random card and assign to dealer. Hide this card.
-// Get one random card and assign to player. Display this card. 
-// Get one random card and assign to dealer. Display this card. 
-// Get one random card and assign it to player. Display this card. 
-
-//add functionality to push cards into usedCards array as soon as they come out. 
 
 var DealerLogicController = {
     calculateDealerScore: function(){
