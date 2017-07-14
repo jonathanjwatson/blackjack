@@ -351,15 +351,15 @@ var TopGameControllers = {
         TopGameControllers.disablePlayerButtons();
         $('#startButton').prop('disabled', false);
         if (topLevelVariables.playerBust === true){
-            alert("You busted! You lose!");
+            setTimeout(function(){ alert("You busted! You lose!"); }, 650);
         } else if (topLevelVariables.dealerBust === true){
-            alert("You win!");
+            setTimeout(function(){ alert("Dealer busted! You win!"); }, 650);
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
-            alert("You won!");
+            setTimeout(function(){ alert("You won!"); }, 650);
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
-            alert("You lose!");
+            setTimeout(function(){ alert("You lose!"); }, 650);
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
-            alert("It's a push");
+            setTimeout(function(){ alert("It's a push"); }, 650);
         }
     },
     checkforBlackJack: function() {
@@ -413,7 +413,6 @@ var DealerLogicController = {
                 }
             }
             topLevelVariables.dealerBust = true;
-            alert("Dealer busts!");
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             console.log(`Dealer Score: ${topLevelVariables.dealerScore}`);
             $('#dealerScore span').text(topLevelVariables.dealerScore);
