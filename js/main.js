@@ -282,7 +282,30 @@ var topLevelVariables = {
     newDealButton: false,
 }
 
+var jQueryVariables = {
+    $dealerCardOne:  $('#dealerCardOne'),
+    $dealerCardTwo: $('#dealerCardTwo'),
+    $playerCardOne: $('#playerCardOne'),
+    $playerCardTwo: $('#playerCardTwo'),
+    $playerScoreSpan: $('#playerScore span'),
+    $dealerScoreSpan: $('#dealerScore span'),
+    $hitButton: $('#hitButton'),
+    $stayButton: $('#stayButton'),
+    $startButton: $('#startButton')
+}
+
 var TopGameControllers = {
+
+        playerHandReset: function() {
+            playerHand = $('#playerHand').find('img');
+            playerHandLength = playerHand.length;
+            playerHand.slice(2, playerHandLength).remove();
+        },
+        dealerHandReset: function() {
+            dealerHand = $('#dealerHand').find('img');
+            dealerHandLength = dealerHand.length;
+            dealerHand.slice(2, dealerHandLength).remove();
+        },
         resetCards: function() {
         topLevelVariables.dealerCardOne = null;
         topLevelVariables.playerCardOne = null;
@@ -297,28 +320,24 @@ var TopGameControllers = {
         topLevelVariables.playerBust = false;
         topLevelVariables.dealerBust = false;
         topLevelVariables.dealerFinish = false;
-        $('#dealerCardOne').attr('src', 'images/card-images/back.png');
-        $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
-        $('#playerCardOne').attr('src', 'images/card-images/back.png');
-        $('#playerCardTwo').attr('src', 'images/card-images/back.png');
-        $('#playerScore span').text('Player Score');
-        $('#dealerScore span').text('Dealer Score');
-        $('#dealerHand').html('');
-        $('#playerHand').html('');
-        $('#dealerHand').append(`<img id="dealerCardOne" src="images/card-images/back.png" />`);
-        $('#dealerHand').append(`<img id="dealerCardTwo" src="images/card-images/back.png" />`);
-        $('#playerHand').append(`<img id="playerCardOne" src="images/card-images/back.png" />`);
-        $('#playerHand').append(`<img id="playerCardTwo" src="images/card-images/back.png" />`);
+        TopGameControllers.playerHandReset();
+        TopGameControllers.dealerHandReset();
+        jQueryVariables.$dealerCardOne.attr('src', 'images/card-images/back.png');
+        jQueryVariables.$dealerCardTwo.attr('src', 'images/card-images/back.png');
+        jQueryVariables.$playerCardOne.attr('src', 'images/card-images/back.png');
+        jQueryVariables.$playerCardTwo.attr('src', 'images/card-images/back.png');
+        jQueryVariables.$playerScoreSpan.text('Player Score');
+        jQueryVariables.$dealerScoreSpan.text('Dealer Score');
         $('#alertConsole').html(`<p></p>`);
         TopGameControllers.enablePlayerButtons();
     },
     disablePlayerButtons: function() {
-        $('#hitButton').prop('disabled', true)
-        $('#stayButton').prop('disabled', true)
+        jQueryVariables.$hitButton.prop('disabled', true)
+        jQueryVariables.$stayButton.prop('disabled', true)
     },
     enablePlayerButtons: function() {
-        $('#hitButton').prop('disabled', false)
-        $('#stayButton').prop('disabled', false)  
+        jQueryVariables.$hitButton.prop('disabled', false)
+        jQueryVariables.$stayButton.prop('disabled', false)  
     },
     startingCards: function() {
         topLevelVariables.dealerCardOne = TopGameControllers.randomCard();
@@ -327,11 +346,11 @@ var TopGameControllers = {
         topLevelVariables.playerCardTwo = TopGameControllers.randomCard();
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardOne);
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardTwo);
-        $('#dealerCardTwo').attr('src', topLevelVariables.dealerCardTwo.src);
+        jQueryVariables.$dealerCardTwo.attr('src', topLevelVariables.dealerCardTwo.src);
         topLevelVariables.playerCards.push(topLevelVariables.playerCardOne);
-        $('#playerCardOne').attr('src', topLevelVariables.playerCardOne.src);
+        jQueryVariables.$playerCardOne.attr('src', topLevelVariables.playerCardOne.src);
         topLevelVariables.playerCards.push(topLevelVariables.playerCardTwo);
-        $('#playerCardTwo').attr('src', topLevelVariables.playerCardTwo.src);
+        jQueryVariables.$playerCardTwo.attr('src', topLevelVariables.playerCardTwo.src);
         return [topLevelVariables.dealerCards, topLevelVariables.playerCards];
     },
     randomCard: function() {
@@ -371,19 +390,9 @@ var TopGameControllers = {
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
             alert("It's a push");
             $('#winnerConsole').css('background-color', 'yellow');
-        }
+        };
     }
-}
-
-
-//Create a function that looks through usedCards array and make sure the number isn't in there. If it is, loop back and find a different number card. 
-
-// Get one random card and assign to dealer. Hide this card.
-// Get one random card and assign to player. Display this card. 
-// Get one random card and assign to dealer. Display this card. 
-// Get one random card and assign it to player. Display this card. 
-
-//add functionality to push cards into usedCards array as soon as they come out. 
+};
 
 var DealerLogicController = {
     hitDealerCard: function() {
@@ -395,9 +404,9 @@ var DealerLogicController = {
     },
     dealerGameLogic: function() {
         topLevelVariables.playerFinish === true;
-        $('#hitButton').prop('disabled', true);
-        $('#stayButton').prop('disabled', true);
-        $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+        jQueryVariables.$hitButton.prop('disabled', true);
+        jQueryVariables.$stayButton.prop('disabled', true);
+        jQueryVariables.$dealerCardOne.attr('src', topLevelVariables.dealerCardOne.src);
         if (topLevelVariables.dealerScore >=17) {
             $('#alertConsole p').append(`<p>Dealer stands on ${topLevelVariables.dealerScore}</p>`);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
@@ -445,12 +454,12 @@ var DealerLogicController = {
         console.log(`Dealer score: ${topLevelVariables.dealerScore}`);
         if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
             alert("Dealer has blackjack!");
-            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            jQueryVariables.$dealerCardOne.attr('src', topLevelVariables.dealerCardOne.src);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
             //disable player buttons
             return
         } else if (topLevelVariables.playerFinish === true){
-            $('#dealerScore span').text(topLevelVariables.dealerScore)
+            jQueryVariables.$dealerScoreSpan.text(topLevelVariables.dealerScore)
         }
 
         return topLevelVariables.dealerScore;
@@ -469,23 +478,23 @@ var PlayerLogicController = {
         }
         if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
             setTimeout(alert("You got Blackjack!"), 3000);
-            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            jQueryVariables.$dealerCardOne.attr('src', topLevelVariables.dealerCardOne.src);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
         } else if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
                     topLevelVariables.playerScore -= 10;
-                    $('#playerScore span').text(topLevelVariables.playerScore)
+                    jQueryVariables.$playerScoreSpan.text(topLevelVariables.playerScore)
                     PlayerLogicController.calculatePlayerScore();
                 }
             }
             topLevelVariables.playerBust = true;
-            $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
+            jQueryVariables.$dealerCardOne.attr('src', topLevelVariables.dealerCardOne.src);
             $('#alertConsole p').append(`<p>You busted!</p>`);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
         }
         console.log(`Player Score: ${topLevelVariables.playerScore}`);
-        $('#playerScore span').text(topLevelVariables.playerScore)
+        jQueryVariables.$playerScoreSpan.text(topLevelVariables.playerScore)
         return topLevelVariables.playerScore;
     },
     hitPlayerCard: function () {
@@ -503,40 +512,9 @@ var PlayerLogicController = {
         console.log("Call dealerGameLogic function");
         DealerLogicController.dealerGameLogic();
     }
-};
+}
 
-
-//Create a Stay Button for player. 
-// Create "Hit" button for player. When player selects "hit" get a new random card and add to player array. Display the card.
-
-
-
-//Advanced: Create Double Button for player. 
-
-//Advanced: Create Split Button for player. 
-//If playerCards[0].value === playerCards[1].value, then create Split Button. 
-
-//IF player hits Stay, push playerCards into usedCards array. 
-
-//If player points exceeds 21, alert "Bust!" and push playerCards into usedCards array. ;
-
-//Start dealing dealer cards.
-
-//Once Player is done taking cards, show dealer cards, then start taking dealer cards. 
-
-//If 
-
-
-//When everybody has as many cards as they want, evaluate who has a higher score. 
-
-
-
-
-
-//Start button click handler. 
-// $('#startButton').on('click', runInitialFunction(event));
-
-$('#startButton').click(function() {
+jQueryVariables.$startButton.click(function() {
     if (topLevelVariables.newDealButton === false){
         TopGameControllers.enablePlayerButtons();
         TopGameControllers.startingCards();
@@ -556,7 +534,7 @@ $('#startButton').click(function() {
     }
 });
 
-$('#hitButton').click(function() {
+jQueryVariables.$hitButton.click(function() {
     console.log("Take another card");
     PlayerLogicController.hitPlayerCard();
     PlayerLogicController.calculatePlayerScore();
@@ -565,7 +543,7 @@ $('#hitButton').click(function() {
     // }
 });
 
-$('#stayButton').click(function() {
+jQueryVariables.$stayButton.click(function() {
     console.log("Stay with your cards");
     PlayerLogicController.stayPlayerCard();
 });
@@ -574,17 +552,6 @@ $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
 $('#resetCardButton').prop('disabled', true);
-
-
-// function addCardDisplay() {
-//     // console.log(deckOfCards[0].name);
-//     // $('#playerHand').append($)
-// };
-
-// // console.log(deckOfCards[0]);
-
-
-
 
 TopGameControllers.disablePlayerButtons();
 
