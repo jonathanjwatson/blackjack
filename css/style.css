@@ -28,7 +28,7 @@ body {
 }
 img {
     width:100%;
-    max-width:100px;
+    max-width:6rem;
 }
 h1 {
     color: white;
