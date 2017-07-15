@@ -374,8 +374,8 @@ var TopGameControllers = {
         }
     },
     checkforBlackJack: function() {
-        DealerLogicController.calculateDealerScore();
-        PlayerLogicController.calculatePlayerScore();
+        topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
+        topLevelVariables.playerScore = TopGameControllers.calculateScore(topLevelVariables.playerScore, topLevelVariables.playerCards);
         if (topLevelVariables.dealerScore === 21 && topLevelVariables.dealerCards.length === 2){
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             setTimeout(alert("Dealer has Blackjack!"), 3000);
@@ -456,16 +456,18 @@ var DealerLogicController = {
 }
 
 var PlayerLogicController = {
-    calculatePlayerScore: function(){
-        topLevelVariables.playerScore = 0;
-        for (i = 0; i < topLevelVariables.playerCards.length; i++){
-            topLevelVariables.playerScore += topLevelVariables.playerCards[i].value;
-        } if (topLevelVariables.playerScore > 21) {
+    playerGameLogic: function(){
+        topLevelVariables.playerScore = TopGameControllers.calculateScore(topLevelVariables.playerScore, topLevelVariables.playerCards);
+        // topLevelVariables.playerScore = 0;
+        // for (i = 0; i < topLevelVariables.playerCards.length; i++){
+        //     topLevelVariables.playerScore += topLevelVariables.playerCards[i].value;
+        // } 
+        if (topLevelVariables.playerScore > 21) {
             for (i = 0; i < topLevelVariables.playerCards.length; i++){
                 if (topLevelVariables.playerCards[i].value === 11){
                     topLevelVariables.playerCards[i].value = 1;
                     $('#playerScore span').text(topLevelVariables.playerScore)
-                    PlayerLogicController.calculatePlayerScore();
+                    PlayerLogicController.playerGameLogic();
                     return
                 }
             }
@@ -487,7 +489,7 @@ var PlayerLogicController = {
     },
     stayPlayerCard: function(){
         console.log("Call calculatePlayerScore function");
-        PlayerLogicController.calculatePlayerScore();
+        PlayerLogicController.playerGameLogic();
         topLevelVariables.playerFinish = true;
         DealerLogicController.dealerGameLogic();
     }
@@ -505,7 +507,7 @@ $('#startButton').click(function() {
         $('#startButton').prop('disabled', true);
         setTimeout(function(){ 
             TopGameControllers.startingCards();
-            PlayerLogicController.calculatePlayerScore();
+            PlayerLogicController.playerGameLogic();
         }, 1000)
         
     }
@@ -514,7 +516,7 @@ $('#startButton').click(function() {
 $('#hitButton').click(function() {
     console.log("Take another card");
     PlayerLogicController.hitPlayerCard();
-    PlayerLogicController.calculatePlayerScore();
+    PlayerLogicController.playerGameLogic();
     // if (playerScore > 21){
     //     alert("You busted!");
     // }
@@ -529,9 +531,6 @@ $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
 $('#resetCardButton').prop('disabled', true);
-$('#testButton').click(function() {
-    TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
-})
 
 // function addCardDisplay() {
 //     // console.log(deckOfCards[0].name);
