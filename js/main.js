@@ -403,17 +403,18 @@ var TopGameControllers = {
 }
 
 var DealerLogicController = {
-    calculateDealerScore: function(){
-        topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
-        // console.log("Running calculateDealerScore");
-        // topLevelVariables.dealerScore = 0;
-        // for (i = 0; i < topLevelVariables.dealerCards.length; i++){
-        //     topLevelVariables.dealerScore += topLevelVariables.dealerCards[i].value;
-        // }
-        console.log("Dealer Score is " + topLevelVariables.dealerScore);
-        // return
-    },
+    // calculateDealerScore: function(){
+    //     topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
+    //     // console.log("Running calculateDealerScore");
+    //     // topLevelVariables.dealerScore = 0;
+    //     // for (i = 0; i < topLevelVariables.dealerCards.length; i++){
+    //     //     topLevelVariables.dealerScore += topLevelVariables.dealerCards[i].value;
+    //     // }
+    //     console.log("Dealer Score is " + topLevelVariables.dealerScore);
+    //     // return
+    // },
     dealerGameLogic: function() {
+        topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
         console.log("Running dealerGameLogic");
         $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         $('#dealerScore span').text(topLevelVariables.dealerScore)
@@ -424,7 +425,7 @@ var DealerLogicController = {
                 if (topLevelVariables.dealerCards[i].value === 11){
                     topLevelVariables.dealerCards[i].value = 1;
                     $('#dealerScore span').text(topLevelVariables.dealerScore);
-                    DealerLogicController.calculateDealerScore();
+                    // DealerLogicController.calculateDealerScore(); - removed to incorporate in dealerCardLogic
                     DealerLogicController.dealerGameLogic();
                     return
                 }
@@ -449,7 +450,7 @@ var DealerLogicController = {
         topLevelVariables.dealerCardNext = TopGameControllers.randomCard();
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardNext);
         $('#dealerHand').append(`<img src="${topLevelVariables.dealerCardNext.src}" />`);
-        DealerLogicController.calculateDealerScore();
+        // DealerLogicController.calculateDealerScore(); - removed to incorporate in dealerCardLogic
         DealerLogicController.dealerGameLogic();
         return topLevelVariables.dealerCards;
     },
