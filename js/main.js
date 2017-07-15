@@ -388,18 +388,30 @@ var TopGameControllers = {
     displayWinsLosses: function() {
         console.log(`Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}`);
         $('#winLossCounter').html(`<p>Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}</p>`);
+    },
+    calculateScore: function(userScore, cardsArray){
+        console.log("Running calculateScore for " + userScore);
+        userScore = 0;
+        for (i = 0; i < cardsArray.length; i++){
+            console.log(cardsArray.length);
+            userScore += cardsArray[i].value;
+            console.log(cardsArray[i].value);
+        }
+        console.log("Score is " + userScore);
+        return userScore;
     }
 }
 
 var DealerLogicController = {
     calculateDealerScore: function(){
-        console.log("Running calculateDealerScore");
-        topLevelVariables.dealerScore = 0;
-        for (i = 0; i < topLevelVariables.dealerCards.length; i++){
-            topLevelVariables.dealerScore += topLevelVariables.dealerCards[i].value;
-        }
+        topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
+        // console.log("Running calculateDealerScore");
+        // topLevelVariables.dealerScore = 0;
+        // for (i = 0; i < topLevelVariables.dealerCards.length; i++){
+        //     topLevelVariables.dealerScore += topLevelVariables.dealerCards[i].value;
+        // }
         console.log("Dealer Score is " + topLevelVariables.dealerScore);
-        return
+        // return
     },
     dealerGameLogic: function() {
         console.log("Running dealerGameLogic");
@@ -517,7 +529,9 @@ $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
 $('#resetCardButton').prop('disabled', true);
-
+$('#testButton').click(function() {
+    TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
+})
 
 // function addCardDisplay() {
 //     // console.log(deckOfCards[0].name);
