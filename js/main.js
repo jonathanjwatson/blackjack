@@ -292,8 +292,6 @@ var TopGameControllers = {
             }; 
         };
         topLevelVariables.usedCards.push(cardIndex);
-        console.log(topLevelVariables.usedCards);
-        // console.log(this.usedcards);
         return deckOfCards[cardIndex];
     },
     determineWinner: function() {
@@ -337,14 +335,10 @@ var TopGameControllers = {
         $('#winLossCounter').html(`<p>Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}</p>`);
     },
     calculateScore: function(userScore, cardsArray){
-        console.log("Running calculateScore for " + userScore);
         userScore = 0;
         for (i = 0; i < cardsArray.length; i++){
-            console.log(cardsArray.length);
             userScore += cardsArray[i].value;
-            console.log(cardsArray[i].value);
         }
-        console.log("Score is " + userScore);
         return userScore;
     }
 }
@@ -352,13 +346,10 @@ var TopGameControllers = {
 var DealerLogicController = {
     dealerGameLogic: function() {
         topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
-        console.log("Running dealerGameLogic");
         $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
         $('#dealerScore span').text(topLevelVariables.dealerScore)
         if (topLevelVariables.dealerScore > 21) {
-            console.log("dealerGameLogic: dealer has more than 21");
             for (i = 0; i < topLevelVariables.dealerCards.length; i++){
-                console.log(topLevelVariables.dealerCards[i].value);
                 if (topLevelVariables.dealerCards[i].value === 11){
                     topLevelVariables.dealerCards[i].value = 1;
                     $('#dealerScore span').text(topLevelVariables.dealerScore);
@@ -374,11 +365,8 @@ var DealerLogicController = {
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
             return
         } else if (topLevelVariables.dealerScore >= 17){
-            console.log("dealerGameFunction: dealer has more than 17");
-            console.log('Dealer Stands on ' + topLevelVariables.dealerScore);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
         } else if (topLevelVariables.dealerScore < 17){
-            console.log("dealerGameFunction: dealer has less than 17");
             DealerLogicController.hitDealerCard();
         }
 
@@ -409,20 +397,17 @@ var PlayerLogicController = {
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
         }
-        console.log(`Player Score: ${topLevelVariables.playerScore}`);
         $('#playerScore span').text(topLevelVariables.playerScore)
         return topLevelVariables.playerScore;
     },
     hitPlayerCard: function () {
     topLevelVariables.playerCardNext = TopGameControllers.randomCard();
-    console.log(`Your new card is the ${topLevelVariables.playerCardNext.name}`)
     topLevelVariables.playerCards.push(topLevelVariables.playerCardNext);
     $('#playerHand').append(`<img src="${topLevelVariables.playerCardNext.src}" />`);
 
     return topLevelVariables.playerCards;
     },
     stayPlayerCard: function(){
-        console.log("Call calculatePlayerScore function");
         PlayerLogicController.playerGameLogic();
         topLevelVariables.playerFinish = true;
         DealerLogicController.dealerGameLogic();
@@ -450,13 +435,11 @@ $('#startButton').click(function() {
 });
 
 $('#hitButton').click(function() {
-    console.log("Take another card");
     PlayerLogicController.hitPlayerCard();
     PlayerLogicController.playerGameLogic();
 });
 
 $('#stayButton').click(function() {
-    console.log("Stay with your cards");
     PlayerLogicController.stayPlayerCard();
 });
 
