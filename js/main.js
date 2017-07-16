@@ -1,5 +1,5 @@
 $(function() {
-
+    
 	var deckOfCards = [{
 		name: "Ace of Hearts",
 		value: 11,
@@ -229,6 +229,8 @@ var topLevelVariables = {
     newDealButton: false,
     winScore: 0,
     lossScore: 0,
+    $dealerHand: $('#dealerHand'),
+    $playerHand: $('#playerHand')
 }
 
 var TopGameControllers = {
@@ -321,11 +323,11 @@ var TopGameControllers = {
     checkforBlackJack: function() {
         topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
         topLevelVariables.playerScore = TopGameControllers.calculateScore(topLevelVariables.playerScore, topLevelVariables.playerCards);
-        if (topLevelVariables.dealerScore === 21 && topLevelVariables.dealerCards.length === 2){
+        if (topLevelVariables.dealerCards.length === 2 && topLevelVariables.dealerScore === 21){
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
             setTimeout(alert("Dealer has Blackjack!"), 3000);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
-        } else if (topLevelVariables.playerScore === 21 && topLevelVariables.playerCards.length === 2){
+        } else if (topLevelVariables.playerCards.length === 2 && topLevelVariables.playerScore === 21){
             setTimeout(alert("You got Blackjack!"), 3000);
             setTimeout(function(){TopGameControllers.determineWinner(); }, 750);
         }
@@ -340,7 +342,13 @@ var TopGameControllers = {
             userScore += cardsArray[i].value;
         }
         return userScore;
-    }
+    },
+    // hitCard: function(myCardsArray, nextCard, userHand) {
+    //     nextCard = TopGameControllers.randomCard();
+    //     myCardsArray.push(topLevelVariables.nextCard);
+    //     userHand.append(`<img src="${nextCard.src}" />`);
+    //     return myCardsArray;
+    // }
 }
 
 var DealerLogicController = {
@@ -353,14 +361,12 @@ var DealerLogicController = {
                 if (topLevelVariables.dealerCards[i].value === 11){
                     topLevelVariables.dealerCards[i].value = 1;
                     $('#dealerScore span').text(topLevelVariables.dealerScore);
-                    // DealerLogicController.calculateDealerScore(); - removed to incorporate in dealerCardLogic
                     DealerLogicController.dealerGameLogic();
                     return
                 }
             }
             topLevelVariables.dealerBust = true;
             $('#dealerCardOne').attr('src', topLevelVariables.dealerCardOne.src);
-            console.log(`Dealer Score: ${topLevelVariables.dealerScore}`);
             $('#dealerScore span').text(topLevelVariables.dealerScore);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
             return
@@ -368,15 +374,14 @@ var DealerLogicController = {
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 850);
         } else if (topLevelVariables.dealerScore < 17){
             DealerLogicController.hitDealerCard();
+            DealerLogicController.dealerGameLogic();
         }
 
     },
     hitDealerCard: function() {
         topLevelVariables.dealerCardNext = TopGameControllers.randomCard();
         topLevelVariables.dealerCards.push(topLevelVariables.dealerCardNext);
-        $('#dealerHand').append(`<img src="${topLevelVariables.dealerCardNext.src}" />`);
-        // DealerLogicController.calculateDealerScore(); - removed to incorporate in dealerCardLogic
-        DealerLogicController.dealerGameLogic();
+        topLevelVariables.$dealerHand.append(`<img src="${topLevelVariables.dealerCardNext.src}" />`);
         return topLevelVariables.dealerCards;
     },
 }
@@ -404,7 +409,6 @@ var PlayerLogicController = {
     topLevelVariables.playerCardNext = TopGameControllers.randomCard();
     topLevelVariables.playerCards.push(topLevelVariables.playerCardNext);
     $('#playerHand').append(`<img src="${topLevelVariables.playerCardNext.src}" />`);
-
     return topLevelVariables.playerCards;
     },
     stayPlayerCard: function(){
@@ -438,17 +442,12 @@ $('#hitButton').click(function() {
     PlayerLogicController.hitPlayerCard();
     PlayerLogicController.playerGameLogic();
 });
-
 $('#stayButton').click(function() {
     PlayerLogicController.stayPlayerCard();
 });
-
 $('#resetCardButton').click(function() {
     TopGameControllers.resetCards();
 });
-
 $('#resetCardButton').prop('disabled', true);
-
 TopGameControllers.disablePlayerButtons();
-
 });
