@@ -34,6 +34,12 @@ A hand totalling 22 points or higher is known as a bust, and is an immediate los
 
 
 
-### Hand-drawn wireframes. 
+### MockingBird wireframes
 
-![Wireframe 3](.. /css/Wireframe-3.png)
+![Wireframe 3](https://github.com/jwats287/blackjack/blob/master/images/Wireframe-3.png?raw=true)
+
+### Hand-drawn wireframes
+
+![Wireframe 1](https://github.com/jwats287/blackjack/blob/master/images/Wireframe-1.png?raw=true)
+
+![Wireframe 2](https://github.com/jwats287/blackjack/blob/master/images/Wireframe-2.png?raw=true)
