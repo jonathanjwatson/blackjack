@@ -26,9 +26,11 @@ A hand totalling 22 points or higher is known as a bust, and is an immediate los
 ## Features
 
 * Deal button deals cards AND resets game
-* Customizable background
+* Customizable background using CSS Variables
 * Sound effects for buttons and win/loss
 * Win/Loss counter 
+* Responsive Design
+* AI (Player Vs. Computer/Dealer)
 
 ## Wireframe
 
@@ -43,3 +45,8 @@ A hand totalling 22 points or higher is known as a bust, and is an immediate los
 ![Wireframe 1](https://github.com/jwats287/blackjack/blob/master/images/Wireframe-1.jpg?raw=true)
 
 ![Wireframe 2](https://github.com/jwats287/blackjack/blob/master/images/Wireframe-2.jpg?raw=true)
+
+## Future Development
+
+* Create a Split Hand feature when player has two cards of the same value. 
+* Create a betting option where player can wager money and win or lose. 
