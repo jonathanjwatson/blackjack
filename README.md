@@ -1,6 +1,6 @@
 # Single-Deck Blackjack
 
-[BitBallon] (http://printer-beaver-37274.bitballoon.com/)
+[BitBalloon](http://printer-beaver-37274.bitballoon.com/)
 
 ## Overview
 For project one, I created a single-deck blackjack game. 
