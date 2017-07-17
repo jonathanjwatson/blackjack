@@ -2,7 +2,7 @@
 
 ## Project Links
 
-- [BitBalloon](http://printer-beaver-37274.bitballoon.com/)
+- [BitBalloon](http://blackjack-monkey.bitballoon.com/)
 
 - [GitHub Pages (no sound)](https://jwats287.github.io/blackjack/)
 
