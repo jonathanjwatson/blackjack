@@ -48,6 +48,7 @@ p {
     margin: 5px;
     font-size: 16px;
     color: white;
+    text-shadow: 1px 1px #000;
 }
 .controller {
     display:inline-block;
@@ -64,4 +65,9 @@ span{
 footer{
     text-align:center;
     padding:1em;
+}
+.btn-floating {
+    width: 2rem!important;
+    height: 2rem!important;
+    line-height: 2em!important;
 }

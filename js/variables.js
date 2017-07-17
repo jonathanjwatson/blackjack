@@ -224,12 +224,17 @@
         playerFinish: false,
         playerBust: false,
         dealerFinish: false,
-        dealerBust: false,
+		dealerBust: false,
+		playerWin: false,
+		dealerWin: false,
+		playerBlackJack: false,
+		dealerBlackJack: false,
         newDealButton: false,
         winScore: 0,
         lossScore: 0,
         $dealerHand: $('#dealerHand'),
-        $playerHand: $('#playerHand')
+		$playerHand: $('#playerHand'),
+		multiplier: 1
     }
     var bettingVariables = {
         playerTotal: 1000,

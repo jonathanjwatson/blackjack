@@ -13,6 +13,11 @@ var TopGameControllers = {
         topLevelVariables.playerBust = false;
         topLevelVariables.dealerBust = false;
         topLevelVariables.dealerFinish = false;
+        topLevelVariables.playerWin = false;
+		topLevelVariables.dealerWin = false;
+		topLevelVariables.playerBlackJack = false;
+        topLevelVariables.dealerBlackJack = false;
+        topLevelVariables.multiplier = 1;
         $('#dealerCardOne').attr('src', 'images/card-images/back.png');
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
@@ -68,28 +73,33 @@ var TopGameControllers = {
             document.getElementById('buzzer').play();
             setTimeout(function(){ alert("You busted! You lose!"); }, 650);
             topLevelVariables.lossScore += 1;
-            bettingVariables.playerTotal -= bettingVariables.playerBet;
+            bettingVariables.playerTotal -= (bettingVariables.playerBet * topLevelVariables.multiplier);
+            TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerBust === true){
             setTimeout(function(){ alert("Dealer busted! You win!"); }, 650);
             document.getElementById('ta-da').play();
             topLevelVariables.winScore += 1;
-            bettingVariables.playerTotal += bettingVariables.playerBet;
+            bettingVariables.playerTotal += (bettingVariables.playerBet * topLevelVariables.multiplier);
+            TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
             document.getElementById('ta-da').play();
             setTimeout(function(){ alert("You won!"); }, 650);
             topLevelVariables.winScore += 1;
-            bettingVariables.playerTotal += bettingVariables.playerBet;
+            bettingVariables.playerTotal += (bettingVariables.playerBet * topLevelVariables.multiplier);
+            TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
             document.getElementById('buzzer').play();
             setTimeout(function(){ alert("You lose!"); }, 650);
             topLevelVariables.lossScore += 1;
-            bettingVariables.playerTotal -= bettingVariables.playerBet;
+            bettingVariables.playerTotal -= (bettingVariables.playerBet * topLevelVariables.multiplier);
+            TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore === topLevelVariables.playerScore){
             setTimeout(function(){ alert("It's a push"); }, 650);
+            TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         }
     },
@@ -101,6 +111,7 @@ var TopGameControllers = {
             setTimeout(alert("Dealer has Blackjack!"), 3000);
             setTimeout(function(){ TopGameControllers.determineWinner(); }, 750);
         } else if (topLevelVariables.playerCards.length === 2 && topLevelVariables.playerScore === 21){
+            topLevelVariables.multiplier = 1.5;
             setTimeout(alert("You got Blackjack!"), 3000);
             setTimeout(function(){TopGameControllers.determineWinner(); }, 750);
         }
@@ -108,6 +119,16 @@ var TopGameControllers = {
     displayWinsLosses: function() {
         console.log(`Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}`);
         $('#winLossCounter').html(`<p>Wins: ${topLevelVariables.winScore} Losses: ${topLevelVariables.lossScore}</p>`);
+    },
+    increaseBetting: function() {
+        bettingVariables.playerBet += 100;
+    },
+    decreaseBetting: function() {
+        bettingVariables.playerBet -= 100;
+    },
+    displayBetting: function() {
+        $('#playerTotal').html(`${bettingVariables.playerTotal}`);
+        $('#playerBet').html(`${bettingVariables.playerBet}`);
     },
     calculateScore: function(userScore, cardsArray){
         userScore = 0;
@@ -185,7 +206,6 @@ var PlayerLogicController = {
 $(function() {
 $('#startButton').click(function() {
     document.getElementById('play').play();
-    console.log(bettingVariables.playerTotal);
     if (topLevelVariables.newDealButton === false){
         $('#startButton').prop('disabled', true);
         TopGameControllers.enablePlayerButtons();
@@ -211,5 +231,13 @@ $('#hitButton').click(function() {
 $('#stayButton').click(function() {
     PlayerLogicController.stayPlayerCard();
     document.getElementById('play').play();
+});
+$('#subtractBet').click(function() {
+    TopGameControllers.decreaseBetting();
+    TopGameControllers.displayBetting();
+});
+$('#addBet').click(function() {
+    TopGameControllers.increaseBetting();
+    TopGameControllers.displayBetting();
 });
 });
