@@ -15,3 +15,25 @@ Once the player finishes, the dealer plays. The dealer automatically takes cards
 If either the player, or the dealer reaches 21 with their initial 2 cards, it is known as a blackjack, and play stops immediately. 
 
 A hand totalling 22 points or higher is known as a bust, and is an immediate loss. 
+
+## Technologies Used
+
+* Languages - HTML5, CSS3, Javascript, jQuery
+* Design - MockingBird, Materialize
+* Project Planning & User Stories - Trello
+* Visual Studio Code
+
+## Features
+
+* Deal button deals cards AND resets game
+* Customizable background
+* Sound effects for buttons and win/loss
+* Win/Loss counter 
+
+## Wireframe
+
+
+
+### Hand-drawn wireframes. 
+
+![Wireframe 3](/css/Wireframe-3.png)
