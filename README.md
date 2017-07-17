@@ -57,6 +57,6 @@ A hand totalling 22 points or higher is known as a bust, and is an immediate los
 ## Future Development
 
 * Create a Split Hand feature when player has two cards of the same value. 
-* ~~Create a betting option where player can wager money and win or lose.~~
+* ~~Create a betting option where player can wager money and win or lose.~~ - DONE
 * Updating betting for variable bet options. 
 * Updating betting for interactive betting (doubling a bet on first two cards).
