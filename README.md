@@ -36,4 +36,4 @@ A hand totalling 22 points or higher is known as a bust, and is an immediate los
 
 ### Hand-drawn wireframes. 
 
-![Wireframe 3](/css/Wireframe-3.png)
+![Wireframe 3](.. /css/Wireframe-3.png)
