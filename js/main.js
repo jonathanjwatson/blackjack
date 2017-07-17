@@ -209,7 +209,6 @@ $(function() {
 		value: 10,
 		src: "images/card-images/king_of_clubs.png"
 	}];
-
 var topLevelVariables = {
     dealerCardOne: null,
     playerCardOne: null,
@@ -232,7 +231,6 @@ var topLevelVariables = {
     $dealerHand: $('#dealerHand'),
     $playerHand: $('#playerHand')
 }
-
 var TopGameControllers = {
         resetCards: function() {
         topLevelVariables.dealerCardOne = null;
@@ -300,18 +298,22 @@ var TopGameControllers = {
         TopGameControllers.disablePlayerButtons();
         $('#startButton').prop('disabled', false);
         if (topLevelVariables.playerBust === true){
+            document.getElementById('buzzer').play();
             setTimeout(function(){ alert("You busted! You lose!"); }, 650);
             topLevelVariables.lossScore += 1;
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerBust === true){
             setTimeout(function(){ alert("Dealer busted! You win!"); }, 650);
+            document.getElementById('ta-da').play();
             topLevelVariables.winScore += 1;
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
+            document.getElementById('ta-da').play();
             setTimeout(function(){ alert("You won!"); }, 650);
             topLevelVariables.winScore += 1;
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
+            document.getElementById('buzzer').play();
             setTimeout(function(){ alert("You lose!"); }, 650);
             topLevelVariables.lossScore += 1;
             TopGameControllers.displayWinsLosses();
@@ -343,14 +345,7 @@ var TopGameControllers = {
         }
         return userScore;
     },
-    // hitCard: function(myCardsArray, nextCard, userHand) {
-    //     nextCard = TopGameControllers.randomCard();
-    //     myCardsArray.push(topLevelVariables.nextCard);
-    //     userHand.append(`<img src="${nextCard.src}" />`);
-    //     return myCardsArray;
-    // }
 }
-
 var DealerLogicController = {
     dealerGameLogic: function() {
         topLevelVariables.dealerScore = TopGameControllers.calculateScore(topLevelVariables.dealerScore, topLevelVariables.dealerCards);
@@ -385,7 +380,6 @@ var DealerLogicController = {
         return topLevelVariables.dealerCards;
     },
 }
-
 var PlayerLogicController = {
     playerGameLogic: function(){
         topLevelVariables.playerScore = TopGameControllers.calculateScore(topLevelVariables.playerScore, topLevelVariables.playerCards);
@@ -417,8 +411,8 @@ var PlayerLogicController = {
         DealerLogicController.dealerGameLogic();
     }
 };
-//Button Click Handlers
 $('#startButton').click(function() {
+    document.getElementById('play').play();
     if (topLevelVariables.newDealButton === false){
         $('#startButton').prop('disabled', true);
         TopGameControllers.enablePlayerButtons();
@@ -434,20 +428,15 @@ $('#startButton').click(function() {
             TopGameControllers.startingCards();
             PlayerLogicController.playerGameLogic();
         }, 1000)
-    
     }
 });
-
 $('#hitButton').click(function() {
     PlayerLogicController.hitPlayerCard();
     PlayerLogicController.playerGameLogic();
+    document.getElementById('play').play();
 });
 $('#stayButton').click(function() {
     PlayerLogicController.stayPlayerCard();
+    document.getElementById('play').play();
 });
-$('#resetCardButton').click(function() {
-    TopGameControllers.resetCards();
-});
-$('#resetCardButton').prop('disabled', true);
-TopGameControllers.disablePlayerButtons();
 });
