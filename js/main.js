@@ -71,13 +71,13 @@ var TopGameControllers = {
         $('#startButton').prop('disabled', false);
         if (topLevelVariables.playerBust === true){
             document.getElementById('buzzer').play();
-            setTimeout(function(){ alert("You busted! You lose!"); }, 650);
+            setTimeout(function(){ alert(`You busted with ${topLevelVariables.playerScore}! You lose!`); }, 650);
             topLevelVariables.lossScore += 1;
             bettingVariables.playerTotal -= (bettingVariables.playerBet * topLevelVariables.multiplier);
             TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerBust === true){
-            setTimeout(function(){ alert("Dealer busted! You win!"); }, 650);
+            setTimeout(function(){ alert(`Dealer busted with ${topLevelVariables.dealerScore}! You win!`); }, 650);
             document.getElementById('ta-da').play();
             topLevelVariables.winScore += 1;
             bettingVariables.playerTotal += (bettingVariables.playerBet * topLevelVariables.multiplier);
@@ -85,14 +85,14 @@ var TopGameControllers = {
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.playerScore > topLevelVariables.dealerScore){
             document.getElementById('ta-da').play();
-            setTimeout(function(){ alert("You won!"); }, 650);
+            setTimeout(function(){ alert(`You won with ${topLevelVariables.playerScore}!`); }, 650);
             topLevelVariables.winScore += 1;
             bettingVariables.playerTotal += (bettingVariables.playerBet * topLevelVariables.multiplier);
             TopGameControllers.displayBetting();
             TopGameControllers.displayWinsLosses();
         } else if (topLevelVariables.dealerScore > topLevelVariables.playerScore){
             document.getElementById('buzzer').play();
-            setTimeout(function(){ alert("You lose!"); }, 650);
+            setTimeout(function(){ alert(`You lose! Dealer had ${topLevelVariables.dealerScore}. You had ${topLevelVariables.playerScore}.`); }, 650);
             topLevelVariables.lossScore += 1;
             bettingVariables.playerTotal -= (bettingVariables.playerBet * topLevelVariables.multiplier);
             TopGameControllers.displayBetting();
