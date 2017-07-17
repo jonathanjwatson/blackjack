@@ -9,17 +9,11 @@
         <title>Single Deck Blackjack</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Compiled and minified JavaScript -->
-        <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-        <script type="text/javascript" src="js/main.js"></script>
+
+
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -82,7 +76,13 @@
             <div class="col s3">
             </div>
         </div>
-          <script>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script>
                 const inputs = document.querySelectorAll('.row input');
                 function handleUpdate() {
                 const suffix = this.dataset.sizing || '';
@@ -90,9 +90,8 @@
                 }
                 inputs.forEach(input => input.addEventListener('change', handleUpdate));
                 inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
-        </script>
-        <!-- https://github.com/wesbos/JavaScript30/blob/master/03%20-%20CSS%20Variables/index-FINISHED.html -->
-        </div>
+    </script>
+<!-- https://github.com/wesbos/JavaScript30/blob/master/03%20-%20CSS%20Variables/index-FINISHED.html -->
     </body>
     <footer>
         <audio id="play" src="robot_blip.mp3"></audio>
