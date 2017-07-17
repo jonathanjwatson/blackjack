@@ -2,9 +2,11 @@
 
 ## Project Links
 
-[BitBalloon](http://printer-beaver-37274.bitballoon.com/)
-[GitHub Pages (no sound)](https://jwats287.github.io/blackjack/)
-[Trello Board](https://trello.com/b/pmZG1PhD/blackjack)
+- [BitBalloon](http://printer-beaver-37274.bitballoon.com/)
+
+- [GitHub Pages (no sound)](https://jwats287.github.io/blackjack/)
+
+- [Trello Board](https://trello.com/b/pmZG1PhD/blackjack)
 
 ## Overview
 For project one, I created a single-deck blackjack game. 
