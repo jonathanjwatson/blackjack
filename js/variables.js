@@ -234,7 +234,27 @@
         lossScore: 0,
         $dealerHand: $('#dealerHand'),
 		$playerHand: $('#playerHand'),
-		multiplier: 1
+		multiplier: 1,
+		resetCards: function() {
+			this.dealerCardOne = null;
+			this.playerCardOne = null;
+			this.dealerCardTwo = null;
+			this.playerCardTwo = null;
+			this.dealerCards = [];
+			this.playerCards = [];
+			this.usedCards = [];
+			this.dealerScore = 0;
+			this.playerScore = 0;
+			this.playerFinish = false;
+			this.playerBust = false;
+			this.dealerBust = false;
+			this.dealerFinish = false;
+			this.playerWin = false;
+			this.dealerWin = false;
+			this.playerBlackJack = false;
+			this.dealerBlackJack = false;
+			this.multiplier = 1;
+		}
     }
     var bettingVariables = {
         playerTotal: 1000,

@@ -1,23 +1,6 @@
 var TopGameControllers = {
-        resetCards: function() {
-        topLevelVariables.dealerCardOne = null;
-        topLevelVariables.playerCardOne = null;
-        topLevelVariables.dealerCardTwo = null;
-        topLevelVariables.playerCardTwo = null;
-        topLevelVariables.dealerCards = [];
-        topLevelVariables.playerCards = [];
-        topLevelVariables.usedCards = [];
-        topLevelVariables.dealerScore = 0;
-        topLevelVariables.playerScore = 0;
-        topLevelVariables.playerFinish = false;
-        topLevelVariables.playerBust = false;
-        topLevelVariables.dealerBust = false;
-        topLevelVariables.dealerFinish = false;
-        topLevelVariables.playerWin = false;
-		topLevelVariables.dealerWin = false;
-		topLevelVariables.playerBlackJack = false;
-        topLevelVariables.dealerBlackJack = false;
-        topLevelVariables.multiplier = 1;
+    resetCards: function() {
+        topLevelVariables.resetCards();
         $('#dealerCardOne').attr('src', 'images/card-images/back.png');
         $('#dealerCardTwo').attr('src', 'images/card-images/back.png');
         $('#playerCardOne').attr('src', 'images/card-images/back.png');
